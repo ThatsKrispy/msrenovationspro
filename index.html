@@ -163,39 +163,71 @@ h2.sec-title .it{font-style:italic;color:var(--maroon)}
 .sign .ph{color:var(--maroon-soft);font-weight:500;letter-spacing:.03em}
 @media(max-width:880px){.about-grid{grid-template-columns:1fr}.portrait{max-width:380px}}
 
-/* GALLERY — masonry-feel grid with 20 real photos */
-.gallery{background:var(--paper)}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:12px}
-.gtile{border-radius:12px;overflow:hidden;position:relative;background:#1a1416 center/cover;border:1px solid var(--line);display:grid;place-items:end start;padding:18px;color:#fff;transition:transform .25s}
-.gtile:hover{transform:scale(1.015)}
-.gtile span{position:relative;z-index:2;font-family:'Archivo';font-style:italic;font-weight:700;font-size:16px;letter-spacing:-.01em;text-shadow:0 2px 14px rgba(0,0,0,.7)}
-.gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(26,20,22,.72),transparent 55%)}
-.gtile.wide{grid-column:span 2}
-.gtile.tall{grid-row:span 2}
-.gtile.featured{grid-column:span 2;grid-row:span 2}
-/* featured real photos */
-.g1{background-image:url('miami-staircase-led-renovation-finished.jpg');background-position:center 30%}
-.g2{background-image:url('miami-luxury-lobby-renovation-finished.jpg')}
-.g3{background-image:url('miami-commercial-office-renovation-finished.jpg')}
-.g4{background-image:url('miami-interior-painting-finished.jpg')}
-.g5{background-image:url('miami-renovation-crew-trim-work.jpg');background-position:top}
-.g6{background-image:url('miami-drywall-sanding-finish.jpg');background-position:top}
-.g7{background-image:url('miami-drywall-taping-coffered-ceiling.jpg')}
-.g8{background-image:url('miami-commercial-framing-buildout.jpg')}
-.g9{background-image:url('miami-ceiling-plaster-crew.jpg');background-position:top}
-.g10{background-image:url('miami-commercial-painting-prep.jpg')}
-.g11{background-image:url('miami-hotel-corridor-painting-finished.jpg')}
-.g12{background-image:url('miami-highrise-condo-drywall-repair.jpg')}
-.g13{background-image:url('miami-staircase-painting-prep.jpg');background-position:top}
-.g14{background-image:url('miami-interior-painting-open-plan.jpg')}
-.g15{background-image:url('miami-home-renovation-demo.jpg');background-position:top}
-.g16{background-image:url('miami-drywall-primer-interior.jpg')}
-.g17{background-image:url('miami-drywall-prime-bright-room.jpg')}
-.g18{background-image:url('miami-commercial-corridor-renovation.jpg')}
-.g19{background-image:url('miami-drywall-tile-renovation.jpg');background-position:top}
-.g20{background-image:url('popcorn-ceiling-removal-miami-before.jpg');background-position:top}
-@media(max-width:760px){.gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px}.gtile.featured{grid-column:span 2}}
-@media(max-width:480px){.gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:140px}}
+/* GALLERY */
+.gallery{background:var(--ink)}
+.gallery .sec-head{margin-bottom:48px}
+.gallery .sec-head h2,.gallery .sec-title .it{color:var(--paper)}
+.gallery .eyebrow{color:var(--maroon-soft)}
+.gallery .eyebrow::before{background:var(--maroon-soft)}
+.gallery .sec-head p{color:#9a9096}
+
+/* Hero shot — full width, tall */
+.gallery-hero{position:relative;border-radius:14px;overflow:hidden;height:520px;background:url('miami-staircase-led-renovation-finished.jpg') center 35%/cover;margin-bottom:14px}
+.gallery-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,10,.65) 0%,transparent 55%)}
+.gallery-hero-label{position:absolute;bottom:28px;left:32px;z-index:2;color:#fff}
+.gallery-hero-label h3{font-family:'Archivo';font-size:28px;font-weight:800;letter-spacing:-.01em;margin-bottom:4px}
+.gallery-hero-label p{font-size:14px;color:rgba(255,255,255,.7);letter-spacing:.04em;text-transform:uppercase;font-weight:500}
+.gallery-hero-tag{position:absolute;top:24px;right:24px;z-index:2;background:var(--maroon);color:#fff;font-family:'Archivo';font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:50px}
+
+/* 3-column uniform grid */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gtile{
+  position:relative;border-radius:12px;overflow:hidden;
+  aspect-ratio:4/3;background:#1a1416 center/cover;
+  cursor:pointer;transition:box-shadow .35s;
+  background-size:cover;
+}
+.gtile:hover{box-shadow:0 20px 50px -16px rgba(0,0,0,.6)}
+/* zoom the background on hover via a pseudo that inherits bg */
+.gtile .zoom{position:absolute;inset:0;background:inherit;background-size:cover;transition:transform .55s ease;border-radius:inherit}
+.gtile:hover .zoom{transform:scale(1.07)}
+/* base vignette always visible */
+.gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,10,.55) 0%,rgba(11,9,10,.08) 55%,transparent 100%);z-index:1;pointer-events:none}
+/* caption slides up on hover */
+.gtile-caption{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  padding:22px 20px 18px;
+  background:linear-gradient(to top,rgba(11,9,10,.92) 0%,rgba(11,9,10,.6) 60%,transparent 100%);
+  transform:translateY(6px);opacity:0;
+  transition:transform .35s ease,opacity .35s ease;
+  pointer-events:none;
+}
+.gtile:hover .gtile-caption,.gtile:focus-within .gtile-caption{transform:translateY(0);opacity:1}
+.gtile-caption h4{font-family:'Archivo';font-size:15px;font-weight:700;color:#fff;margin-bottom:3px;letter-spacing:-.01em}
+.gtile-caption p{font-size:11.5px;color:rgba(255,255,255,.6);letter-spacing:.07em;text-transform:uppercase;font-weight:500}
+/* background images — each tile */
+.g1{background-image:url('miami-luxury-lobby-renovation-finished.jpg')}
+.g2{background-image:url('miami-commercial-office-renovation-finished.jpg')}
+.g3{background-image:url('miami-interior-painting-finished.jpg')}
+.g4{background-image:url('miami-renovation-crew-trim-work.jpg');background-position:center top}
+.g5{background-image:url('miami-drywall-sanding-finish.jpg');background-position:center top}
+.g6{background-image:url('miami-drywall-taping-coffered-ceiling.jpg')}
+.g7{background-image:url('miami-ceiling-plaster-crew.jpg');background-position:center top}
+.g8{background-image:url('miami-commercial-painting-prep.jpg')}
+.g9{background-image:url('miami-hotel-corridor-painting-finished.jpg')}
+.g10{background-image:url('miami-highrise-condo-drywall-repair.jpg')}
+.g11{background-image:url('miami-staircase-painting-prep.jpg');background-position:center top}
+.g12{background-image:url('miami-interior-painting-open-plan.jpg')}
+.g13{background-image:url('miami-home-renovation-demo.jpg');background-position:center top}
+.g14{background-image:url('miami-drywall-primer-interior.jpg')}
+.g15{background-image:url('miami-drywall-prime-bright-room.jpg')}
+.g16{background-image:url('miami-commercial-corridor-renovation.jpg')}
+.g17{background-image:url('miami-commercial-framing-buildout.jpg')}
+.g18{background-image:url('miami-drywall-tile-renovation.jpg')}
+.g19{background-image:url('miami-drywall-prime-bright-room.jpg')}
+.g20{background-image:url('popcorn-ceiling-removal-miami-before.jpg');background-position:center top}
+@media(max-width:880px){.gallery-grid{grid-template-columns:1fr 1fr}.gallery-hero{height:380px}}
+@media(max-width:520px){.gallery-grid{grid-template-columns:1fr}.gallery-hero{height:280px}.gallery-hero-label h3{font-size:22px}}
 
 /* AREAS */
 .areas{background:var(--cream)}
@@ -414,27 +446,37 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-cta):not(.cta-phone
       <h2 class="sec-title">Proof, <span class="it">on the wall</span></h2>
       <p>Every photo is from an actual Ms Renovations Pro job — residential and commercial, across Miami and South Florida.</p>
     </div>
+
+    <!-- Hero shot -->
+    <div class="gallery-hero" role="img" aria-label="Finished LED staircase renovation in Miami by Ms Renovations Pro">
+      <div class="gallery-hero-tag">Featured</div>
+      <div class="gallery-hero-label">
+        <h3>LED Staircase Refinish</h3>
+        <p>Miami · Residential · Flooring &amp; Lighting</p>
+      </div>
+    </div>
+
+    <!-- 3-column grid — hover to reveal caption -->
     <div class="gallery-grid">
-      <div class="gtile g1 featured" role="img" aria-label="Finished LED staircase renovation with warm lighting"><span>LED Staircase Refinish</span></div>
-      <div class="gtile g2" role="img" aria-label="Luxury lobby renovation finished in Miami"><span>Luxury Lobby</span></div>
-      <div class="gtile g3" role="img" aria-label="Commercial office renovation complete"><span>Commercial Office</span></div>
-      <div class="gtile g9 tall" role="img" aria-label="Crew plastering ceiling on ladder"><span>Ceiling Work</span></div>
-      <div class="gtile g4" role="img" aria-label="Interior painting near-finished with black doors"><span>Interior Painting</span></div>
-      <div class="gtile g10" role="img" aria-label="Commercial painting preparation with dust sheets"><span>Commercial Prep</span></div>
-      <div class="gtile g5" role="img" aria-label="Renovation crew at miter saw doing trim work"><span>Crew at Work</span></div>
-      <div class="gtile g6 wide" role="img" aria-label="Drywall sanding and finishing work"><span>Drywall Finishing</span></div>
-      <div class="gtile g11" role="img" aria-label="Hotel corridor painting finished"><span>Hotel Corridor</span></div>
-      <div class="gtile g7" role="img" aria-label="Coffered ceiling drywall taping in progress"><span>Coffered Ceiling</span></div>
-      <div class="gtile g8" role="img" aria-label="Commercial steel stud framing buildout"><span>Commercial Framing</span></div>
-      <div class="gtile g12" role="img" aria-label="High-rise condo drywall repair Miami"><span>High-Rise Condo</span></div>
-      <div class="gtile g13" role="img" aria-label="Staircase painting with full protection prep"><span>Stair Painting Prep</span></div>
-      <div class="gtile g14" role="img" aria-label="Interior painting open plan home"><span>Open Plan Repaint</span></div>
-      <div class="gtile g15" role="img" aria-label="Home renovation demolition and framing"><span>Demo &amp; Frame</span></div>
-      <div class="gtile g16" role="img" aria-label="Drywall primer coat complete on interior walls"><span>Drywall Primer</span></div>
-      <div class="gtile g17" role="img" aria-label="Fresh drywall prime in bright open room"><span>Fresh Drywall</span></div>
-      <div class="gtile g18" role="img" aria-label="Commercial corridor renovation in progress"><span>Commercial Corridor</span></div>
-      <div class="gtile g19" role="img" aria-label="Tile and drywall renovation in progress"><span>Tile &amp; Drywall</span></div>
-      <div class="gtile g20" role="img" aria-label="Popcorn ceiling removal in progress — before"><span>Popcorn Removal</span></div>
+      <div class="gtile g1" role="img" aria-label="Luxury lobby renovation finished in Miami"><div class="zoom"></div><div class="gtile-caption"><h4>Luxury Lobby</h4><p>Miami · Commercial</p></div></div>
+      <div class="gtile g2" role="img" aria-label="Commercial office renovation complete"><div class="zoom"></div><div class="gtile-caption"><h4>Commercial Office</h4><p>South Florida · Commercial</p></div></div>
+      <div class="gtile g3" role="img" aria-label="Interior painting near-finished with black doors"><div class="zoom"></div><div class="gtile-caption"><h4>Interior Painting</h4><p>Miami · Residential</p></div></div>
+      <div class="gtile g4" role="img" aria-label="Renovation crew doing precision trim work"><div class="zoom"></div><div class="gtile-caption"><h4>Trim &amp; Carpentry</h4><p>South Florida · Crew at Work</p></div></div>
+      <div class="gtile g5" role="img" aria-label="Drywall sanding and finishing work in progress"><div class="zoom"></div><div class="gtile-caption"><h4>Drywall Finishing</h4><p>Miami · Drywall</p></div></div>
+      <div class="gtile g6" role="img" aria-label="Coffered ceiling drywall taping in progress"><div class="zoom"></div><div class="gtile-caption"><h4>Coffered Ceiling</h4><p>South Florida · Drywall</p></div></div>
+      <div class="gtile g7" role="img" aria-label="Crew member plastering ceiling on ladder"><div class="zoom"></div><div class="gtile-caption"><h4>Ceiling Plaster</h4><p>Miami · Crew at Work</p></div></div>
+      <div class="gtile g8" role="img" aria-label="Commercial space painting prep with full dust protection"><div class="zoom"></div><div class="gtile-caption"><h4>Commercial Prep</h4><p>South Florida · Painting</p></div></div>
+      <div class="gtile g9" role="img" aria-label="Finished hotel corridor with freshly painted walls"><div class="zoom"></div><div class="gtile-caption"><h4>Hotel Corridor</h4><p>Miami · Commercial Painting</p></div></div>
+      <div class="gtile g10" role="img" aria-label="High-rise condo drywall repair in Miami"><div class="zoom"></div><div class="gtile-caption"><h4>High-Rise Condo</h4><p>Brickell · Drywall</p></div></div>
+      <div class="gtile g11" role="img" aria-label="Staircase painting with full protection and ladder setup"><div class="zoom"></div><div class="gtile-caption"><h4>Staircase Painting</h4><p>Miami · Painting</p></div></div>
+      <div class="gtile g12" role="img" aria-label="Open plan interior painting complete"><div class="zoom"></div><div class="gtile-caption"><h4>Open Plan Repaint</h4><p>South Florida · Painting</p></div></div>
+      <div class="gtile g13" role="img" aria-label="Home renovation demolition and framing phase"><div class="zoom"></div><div class="gtile-caption"><h4>Demo &amp; Frame</h4><p>Miami · Full Remodel</p></div></div>
+      <div class="gtile g14" role="img" aria-label="Drywall primer coat complete on interior walls"><div class="zoom"></div><div class="gtile-caption"><h4>Drywall Primer</h4><p>South Florida · Drywall</p></div></div>
+      <div class="gtile g15" role="img" aria-label="Fresh drywall prime in bright open room"><div class="zoom"></div><div class="gtile-caption"><h4>Fresh Drywall</h4><p>Miami · Drywall</p></div></div>
+      <div class="gtile g16" role="img" aria-label="Commercial corridor renovation in progress"><div class="zoom"></div><div class="gtile-caption"><h4>Commercial Corridor</h4><p>South Florida · Commercial</p></div></div>
+      <div class="gtile g17" role="img" aria-label="Steel stud commercial framing buildout"><div class="zoom"></div><div class="gtile-caption"><h4>Commercial Framing</h4><p>Miami · Buildout</p></div></div>
+      <div class="gtile g18" role="img" aria-label="Tile and drywall renovation in progress"><div class="zoom"></div><div class="gtile-caption"><h4>Tile &amp; Drywall</h4><p>South Florida · Flooring</p></div></div>
+      <div class="gtile g20" role="img" aria-label="Popcorn ceiling removal in progress — before result"><div class="zoom"></div><div class="gtile-caption"><h4>Popcorn Removal</h4><p>Miami · Specialty</p></div></div>
     </div>
   </div>
 </section>
