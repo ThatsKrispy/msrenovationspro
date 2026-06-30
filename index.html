@@ -171,32 +171,15 @@ nav.scrolled .nav-logo{height:48px}
 /* ─── HERO ────────────────────────────────────────────────── */
 .hero{
   min-height:100svh;
-  display:grid;
-  grid-template-columns:1fr 1fr;
   position:relative;
   overflow:hidden;
+  background:url('miami-staircase-led-renovation-finished.jpg') center 22%/cover;
 }
-/* Left panel — before photo */
-.hero-left{
-  position:relative;
-  background:url('popcorn-ceiling-removal-miami-before.jpg') center 30%/cover;
-  clip-path:polygon(0 0, 94% 0, 100% 100%, 0 100%);
-  margin-right:-6%;
-}
-.hero-left::after{
+.hero::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(17,16,23,.7) 0%,rgba(17,16,23,.3) 60%,rgba(17,16,23,.55) 100%);
+  background:linear-gradient(to top,rgba(17,16,23,.9) 0%,rgba(17,16,23,.55) 45%,rgba(17,16,23,.35) 100%);
 }
-/* Right panel — after photo */
-.hero-right{
-  position:relative;
-  background:url('miami-staircase-led-renovation-finished.jpg') center 20%/cover;
-}
-.hero-right::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(315deg,rgba(17,16,23,.65) 0%,rgba(17,16,23,.2) 60%,rgba(17,16,23,.45) 100%);
-}
-/* Overlay content sits above both panels */
+/* Overlay content */
 .hero-content{
   position:absolute;inset:0;
   display:flex;flex-direction:column;
@@ -217,13 +200,13 @@ nav.scrolled .nav-logo{height:48px}
 }
 .hero-tag::before{content:"";width:5px;height:5px;border-radius:50%;background:#fff;opacity:.7}
 h1.hero-title{
-  font-size:clamp(52px,9.5vw,112px);
+  font-size:clamp(44px,8vw,96px);
   font-weight:900;
   color:#fff;
-  line-height:.95;
+  line-height:.98;
   letter-spacing:-.03em;
   margin-bottom:28px;
-  max-width:13ch;
+  max-width:14ch;
   text-shadow:0 4px 40px rgba(17,16,23,.4);
 }
 h1.hero-title .it{color:var(--maroon-soft);font-style:italic;font-weight:700}
@@ -255,32 +238,8 @@ h1.hero-title .it{color:var(--maroon-soft);font-style:italic;font-weight:700}
   font-size:11px;text-transform:uppercase;letter-spacing:.14em;
   color:rgba(255,255,255,.5);font-weight:600;margin-top:6px;display:block;
 }
-/* Before/After labels on panels */
-.panel-label{
-  position:absolute;top:32px;z-index:3;
-  font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;color:#fff;
-  padding:6px 14px;border-radius:50px;backdrop-filter:blur(8px);
-  pointer-events:none;
-}
-.label-before{left:24px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2)}
-.label-after{right:24px;background:rgba(132,0,47,.85)}
 @media(max-width:720px){
-  .hero{grid-template-columns:1fr;min-height:100svh}
-  .hero-left{
-    display:none;
-  }
-  .hero-right{
-    position:absolute;inset:0;
-    clip-path:none;
-    margin:0;
-  }
-  .hero-right::after{
-    background:linear-gradient(to top,rgba(17,16,23,.88) 0%,rgba(17,16,23,.55) 50%,rgba(17,16,23,.35) 100%);
-  }
-  .hero-content{justify-content:flex-end}
-  h1.hero-title{font-size:clamp(44px,12vw,72px);max-width:none}
-  .panel-label{display:none}
+  h1.hero-title{font-size:clamp(40px,11vw,64px);max-width:none}
 }
 
 /* ─── TICKER ──────────────────────────────────────────────── */
@@ -775,12 +734,6 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-phone):not(.cta-pho
 <!-- ─── HERO ─────────────────────────────────────────────────── -->
 <header>
   <div class="hero" id="heroPanel">
-    <div class="hero-left" aria-hidden="true">
-      <div class="panel-label label-before">Before</div>
-    </div>
-    <div class="hero-right" aria-hidden="true">
-      <div class="panel-label label-after">After</div>
-    </div>
     <div class="hero-content">
       <div class="hero-inner">
         <div class="hero-tag">
