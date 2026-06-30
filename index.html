@@ -348,11 +348,6 @@ section{padding:clamp(72px,10vw,120px) 0}
   opacity:0;transition:opacity .3s;pointer-events:none;
 }
 .svc:hover::after{opacity:1}
-.svc-num{
-  font-family:'Archivo',sans-serif;font-style:italic;font-size:13px;
-  color:var(--maroon);font-weight:700;letter-spacing:.08em;
-  margin-bottom:20px;
-}
 .svc-icon{
   width:40px;height:40px;
   color:var(--maroon);margin-bottom:18px;
@@ -515,41 +510,35 @@ section{padding:clamp(72px,10vw,120px) 0}
 .gtile:hover .gtile-caption,.gtile:focus-within .gtile-caption{transform:translateY(0);opacity:1}
 .gtile-caption h4{font-family:'Archivo',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
 .gtile-caption p{font-size:11px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
-/* Span assignments */
-.gt1{grid-column:span 5;grid-row:span 8}
-.gt2{grid-column:span 4;grid-row:span 5}
-.gt3{grid-column:span 3;grid-row:span 5}
-.gt4{grid-column:span 4;grid-row:span 7}
-.gt5{grid-column:span 4;grid-row:span 7}
-.gt6{grid-column:span 4;grid-row:span 7}
-.gt7{grid-column:span 3;grid-row:span 6}
-.gt8{grid-column:span 3;grid-row:span 6}
-.gt9{grid-column:span 3;grid-row:span 6}
-.gt10{grid-column:span 3;grid-row:span 6}
-.gt11{grid-column:span 4;grid-row:span 5}
-.gt12{grid-column:span 4;grid-row:span 5}
-.gt13{grid-column:span 4;grid-row:span 5}
-.gt14{grid-column:span 3;grid-row:span 5}
-.gt15{grid-column:span 3;grid-row:span 5}
-.gt16{grid-column:span 3;grid-row:span 5}
-.gt17{grid-column:span 3;grid-row:span 5}
-.gt18{grid-column:span 4;grid-row:span 5}
-.gt19{grid-column:span 4;grid-row:span 5}
-.gt20{grid-column:span 4;grid-row:span 5}
+/* Span assignments — repeating editorial rhythm: 1 feature, 2 pair, 3 across, repeat */
+.gt1{grid-column:span 6;grid-row:span 8}
+.gt2{grid-column:span 6;grid-row:span 8}
+.gt3{grid-column:span 4;grid-row:span 6}
+.gt4{grid-column:span 4;grid-row:span 6}
+.gt5{grid-column:span 4;grid-row:span 6}
+.gt6{grid-column:span 6;grid-row:span 7}
+.gt7{grid-column:span 6;grid-row:span 7}
+.gt8{grid-column:span 4;grid-row:span 6}
+.gt9{grid-column:span 4;grid-row:span 6}
+.gt10{grid-column:span 4;grid-row:span 6}
+.gt11{grid-column:span 6;grid-row:span 8}
+.gt12{grid-column:span 6;grid-row:span 8}
+.gt13{grid-column:span 4;grid-row:span 6}
+.gt14{grid-column:span 4;grid-row:span 6}
+.gt15{grid-column:span 4;grid-row:span 6}
+.gt16{grid-column:span 6;grid-row:span 7}
+.gt17{grid-column:span 6;grid-row:span 7}
+.gt18{grid-column:span 6;grid-row:span 7}
+.gt19{grid-column:span 6;grid-row:span 7}
 @media(max-width:900px){
   .gallery-mosaic{grid-template-columns:repeat(6,1fr);grid-auto-rows:56px}
-  .gt1{grid-column:span 4;grid-row:span 7}
-  .gt2{grid-column:span 2;grid-row:span 4}
-  .gt3{grid-column:span 2;grid-row:span 4}
-  .gt4,.gt5,.gt6{grid-column:span 3;grid-row:span 6}
-  .gt7,.gt8,.gt9,.gt10{grid-column:span 3;grid-row:span 5}
-  .gt11,.gt12,.gt13,.gt14{grid-column:span 3;grid-row:span 5}
-  .gt15,.gt16,.gt17,.gt18,.gt19,.gt20{grid-column:span 2;grid-row:span 5}
+  .gt1,.gt2,.gt6,.gt7,.gt11,.gt12,.gt16,.gt17,.gt18,.gt19{grid-column:span 6;grid-row:span 6}
+  .gt3,.gt4,.gt5,.gt8,.gt9,.gt10,.gt13,.gt14,.gt15{grid-column:span 3;grid-row:span 5}
 }
 @media(max-width:560px){
   .gallery-mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:56px}
   .gt1,.gt2,.gt3,.gt4,.gt5,.gt6,.gt7,.gt8,.gt9,.gt10{grid-column:span 1;grid-row:span 6}
-  .gt11,.gt12,.gt13,.gt14,.gt15,.gt16,.gt17,.gt18,.gt19,.gt20{grid-column:span 1;grid-row:span 5}
+  .gt11,.gt12,.gt13,.gt14,.gt15,.gt16,.gt17,.gt18,.gt19{grid-column:span 1;grid-row:span 5}
 }
 
 /* ─── AREAS ────────────────────────────────────────────────── */
@@ -855,15 +844,13 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-phone):not(.cta-pho
     <div class="svc-grid">
 
       <article class="svc">
-        <div class="svc-num">01</div>
         <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9h18M3 9l9-6 9 6M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
         <h3>Popcorn Ceiling Removal</h3>
         <p>Our specialty. Dust-controlled removal, skim coat, and a perfectly smooth, modern finish overhead.</p>
-        <div class="svc-photo"><img src="popcorn-ceiling-removal-miami-before.jpg" alt="Popcorn ceiling removal in progress — Miami" loading="lazy"></div>
+        <div class="svc-photo"><img src="miami-drywall-prime-bright-room.jpg" alt="Popcorn ceiling texture before removal — Miami" loading="lazy"></div>
       </article>
 
       <article class="svc">
-        <div class="svc-num">02</div>
         <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v6M15 9v6M3 15h18"/></svg>
         <h3>Drywall &amp; Repair</h3>
         <p>Patches, full hangs, water damage, texture matching — invisible repairs that vanish into the wall.</p>
@@ -871,7 +858,6 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-phone):not(.cta-pho
       </article>
 
       <article class="svc">
-        <div class="svc-num">03</div>
         <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M7 21V11l5-4 5 4v10M19 7l-2-2 2.5-2.5L21 4z"/></svg>
         <h3>Interior Painting</h3>
         <p>Clean lines, full prep, premium coats. Color consults included so the finish looks intentional, never rushed.</p>
@@ -879,7 +865,6 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-phone):not(.cta-pho
       </article>
 
       <article class="svc">
-        <div class="svc-num">04</div>
         <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><path d="M3 8h18M3 13h18M3 18h18M8 3v18M13 3v18M18 3v18"/></svg>
         <h3>Flooring &amp; Tile</h3>
         <p>Hardwood, LVP, tile, and refinishing — laid level and locked tight, indoors and out.</p>
@@ -887,7 +872,6 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-phone):not(.cta-pho
       </article>
 
       <article class="svc">
-        <div class="svc-num">05</div>
         <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21V7l4-1V3h4v3l4-1v4l4-1v13z"/><path d="M3 21h18"/></svg>
         <h3>Stair Refinishing</h3>
         <p>Worn treads stripped and reborn — risers, rails, and landings finished to showroom shine.</p>
@@ -895,7 +879,6 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-phone):not(.cta-pho
       </article>
 
       <article class="svc">
-        <div class="svc-num">06</div>
         <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 22V6l8-4 8 4v16"/><path d="M9 22v-6h6v6M8 9h2M14 9h2M8 13h2M14 13h2"/></svg>
         <h3>Bath &amp; Full Remodels</h3>
         <p>Bathrooms, interior remodels, and commercial buildouts — residential care, commercial-grade results.</p>
@@ -1063,10 +1046,6 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-phone):not(.cta-pho
       <div class="gtile gt19" role="img" aria-label="Bright drywall prime room — Miami">
         <img class="gtile-img" src="miami-drywall-prime-bright-room.jpg" alt="Fresh drywall prime in bright open room — Miami" loading="lazy">
         <div class="gtile-caption"><h4>Fresh Drywall</h4><p>Miami · Drywall</p></div>
-      </div>
-      <div class="gtile gt20" role="img" aria-label="Popcorn ceiling removal — Miami before">
-        <img class="gtile-img" src="popcorn-ceiling-removal-miami-before.jpg" alt="Popcorn ceiling removal in progress — Miami" loading="lazy">
-        <div class="gtile-caption"><h4>Popcorn Removal</h4><p>Miami · Specialty</p></div>
       </div>
     </div>
   </div>
