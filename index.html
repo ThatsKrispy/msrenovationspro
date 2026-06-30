@@ -33,526 +33,1198 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--maroon:#84002F;--maroon-deep:#5E0021;--maroon-soft:#C97595;--ink:#1A1416;--char:#241B1F;--paper:#FBF8F8;--cream:#F3EDEE;--muted:#6A6065;--line:rgba(26,20,22,.12);--line-light:rgba(255,255,255,.12);--shadow:0 30px 70px -30px rgba(26,20,22,.3)}
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root{
+  --maroon:#84002F;
+  --maroon-deep:#5E0021;
+  --maroon-mid:#A8003C;
+  --maroon-soft:#C97595;
+  --maroon-pale:#F5E6EB;
+  --ink:#111017;
+  --ink-2:#1E1924;
+  --char:#2D2635;
+  --paper:#FAFAF9;
+  --cream:#F4F0EF;
+  --muted:#706878;
+  --muted-light:#9E95A2;
+  --line:rgba(17,16,23,.1);
+  --line-dark:rgba(17,16,23,.18);
+  --line-light:rgba(255,255,255,.1);
+  --line-lighter:rgba(255,255,255,.07);
+  --shadow-sm:0 2px 12px rgba(17,16,23,.08);
+  --shadow:0 16px 48px rgba(17,16,23,.14);
+  --shadow-lg:0 40px 90px -24px rgba(17,16,23,.28);
+  --r:10px;
+  --r-lg:16px;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:17px;line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3,.display{font-family:'Archivo',sans-serif;font-weight:800;line-height:1.0;letter-spacing:-.02em}
-.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,52px)}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.7;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,.display{font-family:'Archivo',sans-serif;line-height:1.0;letter-spacing:-.025em}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,52px)}
 a{color:inherit;text-decoration:none}
-.italic{font-style:italic}
-.maroon{color:var(--maroon)}
+img{display:block;max-width:100%}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip-link{position:absolute;left:-9999px;top:0;z-index:200;background:var(--maroon);color:#fff;padding:12px 20px;border-radius:0 0 8px 0;font-weight:600;font-size:14px}
 .skip-link:focus{left:0}
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
-.cta a:focus-visible,.nav-cta:focus-visible,.btn-primary:focus-visible{outline-color:#fff}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.marquee-track{animation:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.ticker-track{animation:none!important}}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(20px,5vw,52px);background:rgba(11,9,10,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);transition:padding .3s}
-nav.scrolled{padding:9px clamp(20px,5vw,52px)}
-.nav-logo{height:64px;width:auto;display:block;transition:height .3s}
-nav.scrolled .nav-logo{height:52px}
-.nav-links{display:flex;align-items:center;gap:34px;font-size:14px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
-.nav-links a{color:#b8aeb2;transition:color .2s;position:relative}
-.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--maroon-soft);transition:width .25s}
-.nav-links a:hover{color:#fff}
-.nav-links a:hover::after{width:100%}
-@media(max-width:880px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:18px;background:rgba(11,9,10,.98);padding:24px clamp(20px,5vw,52px);border-bottom:1px solid rgba(255,255,255,.1)}.nav-links.open{display:flex}.burger{display:flex}}
-.nav-right{display:flex;align-items:center;gap:14px}
-.nav-socials{display:flex;gap:8px;align-items:center}
-.nav-socials a{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;color:#b8aeb2;transition:color .2s,background .2s}
-.nav-socials a:hover{color:#fff;background:rgba(255,255,255,.08)}
-.nav-socials svg{width:19px;height:19px}
-.nav-cta{background:var(--maroon);color:#fff;padding:11px 22px;border-radius:6px;font-size:13px;text-transform:uppercase;letter-spacing:.07em;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:background .25s,transform .15s}
-.nav-cta:hover{background:var(--maroon-deep);transform:translateY(-1px)}
-.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
-.burger span{width:24px;height:2px;background:#fff;display:block}
-
-/* HERO */
-header{padding:168px 0 64px;position:relative}
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);font-weight:600;margin-bottom:26px}
-.eyebrow::before{content:"";width:32px;height:1px;background:var(--maroon)}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,64px);align-items:center}
-h1.hero-title{font-size:clamp(48px,8.3vw,98px)}
-h1.hero-title .it{font-style:italic;font-weight:600;color:var(--maroon)}
-.hero-sub{margin:28px 0 36px;max-width:470px;font-size:18px;color:#4a4044}
-.hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-.btn-primary{background:var(--maroon);color:#fff;padding:16px 30px;border-radius:6px;font-family:'Archivo';font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:14px;display:inline-flex;align-items:center;gap:10px;transition:background .25s,transform .15s}
-.btn-primary:hover{background:var(--maroon-deep);transform:translateY(-2px)}
-.btn-ghost{padding:16px 26px;border-radius:6px;border:1px solid var(--line);color:var(--ink);font-family:'Archivo';font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:14px;display:inline-flex;align-items:center;gap:9px;transition:border-color .25s,color .25s}
-.btn-ghost:hover{border-color:var(--maroon);color:var(--maroon)}
-.hero-trust{margin-top:44px;display:flex;gap:40px;flex-wrap:wrap}
-.hero-trust b{font-family:'Archivo';font-weight:800;font-style:italic;color:var(--ink);font-size:38px;display:block;line-height:1}
-.hero-trust span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:6px;display:block}
-
-/* SLIDER */
-.reveal{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow);user-select:none;background:var(--cream);border:1px solid var(--line)}
-.reveal .layer{position:absolute;inset:0}
-.reveal .layer .caption{position:absolute;bottom:20px;z-index:2;text-align:left}
-.reveal .before .caption{left:20px}
-.reveal .after .caption{right:20px;text-align:right}
-.reveal .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.reveal .grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent 55%);z-index:1}
-.reveal .tag{position:absolute;top:18px;z-index:3;font-size:11px;letter-spacing:.16em;font-weight:600;padding:7px 14px;border-radius:50px;text-transform:uppercase}
-.reveal .before .tag{left:18px;background:rgba(0,0,0,.55);color:#fff}
-.reveal .after .tag{right:18px;background:var(--maroon);color:#fff}
-.reveal .label-room{font-family:'Archivo';font-weight:700;font-style:italic;font-size:clamp(22px,3.2vw,32px);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.7)}
-.reveal .sub{font-size:13px;color:rgba(255,255,255,.85);margin-top:6px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-.handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;transform:translateX(-50%);cursor:ew-resize;z-index:5;box-shadow:0 0 0 1px rgba(0,0,0,.1)}
-.handle::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:var(--maroon);box-shadow:0 8px 22px rgba(132,0,47,.5);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6 3 12l6 6M15 6l6 6-6 6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
-.reveal-cap{margin-top:16px;font-size:11.5px;color:var(--muted);text-align:center;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
-@media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:44px}.reveal{aspect-ratio:1/1;max-width:480px;margin:0 auto;width:100%}}
-
-/* MARQUEE */
-.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0;margin-top:64px;background:var(--ink)}
-.marquee-track{display:flex;gap:44px;white-space:nowrap;animation:scroll 32s linear infinite;width:max-content}
-.marquee-track span{font-family:'Archivo';font-weight:700;font-style:italic;font-size:24px;color:var(--paper);display:inline-flex;align-items:center;gap:44px}
-.marquee-track span::after{content:"✦";color:var(--maroon-soft);font-size:13px;font-style:normal}
-@keyframes scroll{to{transform:translateX(-50%)}}
-
-/* SECTIONS */
-section{padding:clamp(76px,10vw,124px) 0;position:relative}
-.sec-head{max-width:680px;margin-bottom:58px}
-h2.sec-title{font-size:clamp(38px,5.6vw,66px)}
-h2.sec-title .it{font-style:italic;color:var(--maroon)}
-.sec-head p{margin-top:18px;color:var(--muted);font-size:18px}
-
-/* SERVICES */
-.services{background:var(--cream)}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.svc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:34px 30px;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden}
-.svc:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:transparent}
-.svc::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--maroon);transition:width .3s}
-.svc:hover::before{width:100%}
-.svc-num{font-family:'Archivo';font-style:italic;font-size:17px;color:var(--maroon)}
-.svc-ic{width:44px;height:44px;margin:16px 0 18px;color:var(--maroon)}
-.svc h3{font-size:25px;margin-bottom:10px}
-.svc p{font-size:15px;color:var(--muted)}
-@media(max-width:880px){.svc-grid{grid-template-columns:1fr}}
-
-/* PROCESS */
-.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
-.step{padding:38px 28px 32px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);transition:background .25s}
-.step:nth-child(4n){border-right:0}
-.step:hover{background:var(--cream)}
-.step .n{font-family:'Archivo';font-style:italic;font-size:62px;line-height:1;color:var(--cream);margin-bottom:14px;transition:.25s;-webkit-text-stroke:1.5px var(--muted)}
-.step:hover .n{color:var(--maroon);-webkit-text-stroke-color:var(--maroon)}
-.step h3{font-size:22px;margin-bottom:8px}
-.step p{font-size:14.5px;color:var(--muted)}
-@media(max-width:760px){.proc-grid{grid-template-columns:1fr 1fr}.step:nth-child(2n){border-right:0}}
-@media(max-width:440px){.proc-grid{grid-template-columns:1fr}.step{border-right:0}}
-
-/* ABOUT */
-.about{background:var(--ink);color:var(--paper)}
-.about .eyebrow{color:var(--maroon-soft)}
-.about .eyebrow::before{background:var(--maroon-soft)}
-.about-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(34px,5vw,70px);align-items:center}
-.portrait{aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#1d1619 url('ms-renovations-pro-owner-miami.jpg') center 18%/cover;border:1px solid var(--line-light);box-shadow:var(--shadow)}
-.portrait::after{content:"";display:block;height:100%;background:linear-gradient(to top,rgba(26,20,22,.3),transparent 45%)}
-.about h2{font-size:clamp(36px,5.2vw,62px);margin-bottom:10px}
-.about h2 .it{font-style:italic;color:var(--maroon-soft)}
-.about .role{letter-spacing:.18em;text-transform:uppercase;color:var(--maroon-soft);font-size:12.5px;font-weight:600;margin-bottom:26px}
-.about p{color:#c8bdc1;font-size:17px;margin-bottom:18px;max-width:560px}
-.about .quote{font-family:'Archivo';font-style:italic;font-weight:600;font-size:clamp(20px,2.8vw,28px);color:#fff;border-left:2px solid var(--maroon-soft);padding-left:24px;margin:30px 0;line-height:1.3}
-.sign{margin-top:28px}
-.sign .nm{font-family:'Archivo';font-style:italic;font-weight:800;font-size:22px;margin-bottom:4px}
-.sign .ph{color:var(--maroon-soft);font-weight:500;letter-spacing:.03em}
-@media(max-width:880px){.about-grid{grid-template-columns:1fr}.portrait{max-width:380px}}
-
-/* GALLERY */
-.gallery{background:var(--ink)}
-.gallery .sec-head{margin-bottom:48px}
-.gallery .sec-head h2,.gallery .sec-title .it{color:var(--paper)}
-.gallery .eyebrow{color:var(--maroon-soft)}
-.gallery .eyebrow::before{background:var(--maroon-soft)}
-.gallery .sec-head p{color:#9a9096}
-
-/* Hero shot — full width, tall */
-.gallery-hero{position:relative;border-radius:14px;overflow:hidden;height:520px;background:url('miami-staircase-led-renovation-finished.jpg') center 35%/cover;margin-bottom:14px}
-.gallery-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,10,.65) 0%,transparent 55%)}
-.gallery-hero-label{position:absolute;bottom:28px;left:32px;z-index:2;color:#fff}
-.gallery-hero-label h3{font-family:'Archivo';font-size:28px;font-weight:800;letter-spacing:-.01em;margin-bottom:4px}
-.gallery-hero-label p{font-size:14px;color:rgba(255,255,255,.7);letter-spacing:.04em;text-transform:uppercase;font-weight:500}
-.gallery-hero-tag{position:absolute;top:24px;right:24px;z-index:2;background:var(--maroon);color:#fff;font-family:'Archivo';font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:50px}
-
-/* 3-column uniform grid */
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.gtile{
-  position:relative;border-radius:12px;overflow:hidden;
-  aspect-ratio:4/3;background:#1a1416 center/cover;
-  cursor:pointer;transition:box-shadow .35s;
-  background-size:cover;
+/* ─── UTILITIES ───────────────────────────────────────────── */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;color:var(--maroon);font-family:'Archivo',sans-serif;
 }
-.gtile:hover{box-shadow:0 20px 50px -16px rgba(0,0,0,.6)}
-/* zoom the background on hover via a pseudo that inherits bg */
-.gtile .zoom{position:absolute;inset:0;background:inherit;background-size:cover;transition:transform .55s ease;border-radius:inherit}
-.gtile:hover .zoom{transform:scale(1.07)}
-/* base vignette always visible */
-.gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,10,.55) 0%,rgba(11,9,10,.08) 55%,transparent 100%);z-index:1;pointer-events:none}
-/* caption slides up on hover */
-.gtile-caption{
-  position:absolute;bottom:0;left:0;right:0;z-index:2;
-  padding:22px 20px 18px;
-  background:linear-gradient(to top,rgba(11,9,10,.92) 0%,rgba(11,9,10,.6) 60%,transparent 100%);
-  transform:translateY(6px);opacity:0;
-  transition:transform .35s ease,opacity .35s ease;
+.eyebrow-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--maroon);flex:none}
+.it{font-style:italic}
+.maroon{color:var(--maroon)}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--maroon);color:#fff;
+  padding:15px 28px;border-radius:var(--r);
+  font-family:'Archivo',sans-serif;font-weight:700;
+  font-size:13px;text-transform:uppercase;letter-spacing:.07em;
+  border:2px solid var(--maroon);
+  transition:background .22s,transform .15s,box-shadow .22s;
+  cursor:pointer;
+}
+.btn-primary:hover{background:var(--maroon-deep);border-color:var(--maroon-deep);transform:translateY(-2px);box-shadow:0 10px 28px rgba(132,0,47,.35)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:9px;
+  background:transparent;color:var(--ink);
+  padding:15px 28px;border-radius:var(--r);
+  font-family:'Archivo',sans-serif;font-weight:700;
+  font-size:13px;text-transform:uppercase;letter-spacing:.07em;
+  border:2px solid var(--line-dark);
+  transition:border-color .22s,color .22s,transform .15s;
+  cursor:pointer;
+}
+.btn-ghost:hover{border-color:var(--maroon);color:var(--maroon);transform:translateY(-2px)}
+.btn-ghost-light{
+  display:inline-flex;align-items:center;gap:9px;
+  background:transparent;color:#fff;
+  padding:14px 26px;border-radius:var(--r);
+  font-family:'Archivo',sans-serif;font-weight:700;
+  font-size:13px;text-transform:uppercase;letter-spacing:.07em;
+  border:2px solid rgba(255,255,255,.3);
+  transition:border-color .22s,background .22s,transform .15s;
+}
+.btn-ghost-light:hover{border-color:#fff;background:rgba(255,255,255,.1);transform:translateY(-2px)}
+
+/* ─── NAVIGATION ──────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(18px,5vw,52px);
+  background:rgba(17,16,23,.95);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line-lighter);
+  transition:padding .3s;
+}
+nav.scrolled{padding:10px clamp(18px,5vw,52px)}
+.nav-logo{height:60px;width:auto;transition:height .3s}
+nav.scrolled .nav-logo{height:48px}
+.nav-links{display:flex;align-items:center;gap:32px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;font-family:'Archivo',sans-serif}
+.nav-links a{color:rgba(255,255,255,.55);transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:#fff}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-socials{display:flex;gap:6px}
+.nav-socials a{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:rgba(255,255,255,.45);border:1px solid var(--line-lighter);transition:all .2s}
+.nav-socials a:hover{color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+.nav-socials svg{width:17px;height:17px}
+.nav-phone{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--maroon);color:#fff;
+  padding:10px 20px;border-radius:var(--r);
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.04em;text-transform:uppercase;
+  transition:background .22s,transform .15s;
+}
+.nav-phone:hover{background:var(--maroon-deep);transform:translateY(-1px)}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+.burger span{width:22px;height:2px;background:#fff;display:block;transition:all .25s}
+@media(max-width:900px){
+  .nav-links{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:flex-start;gap:0;
+    background:rgba(17,16,23,.98);
+    border-bottom:1px solid var(--line-lighter);
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{width:100%;padding:14px clamp(18px,5vw,52px);border-bottom:1px solid var(--line-lighter)}
+  .burger{display:flex}
+  .nav-socials{display:none}
+}
+
+/* ─── HERO ────────────────────────────────────────────────── */
+.hero{
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative;
+  overflow:hidden;
+}
+/* Left panel — before photo */
+.hero-left{
+  position:relative;
+  background:url('popcorn-ceiling-removal-miami-before.jpg') center 30%/cover;
+  clip-path:polygon(0 0, 94% 0, 100% 100%, 0 100%);
+  margin-right:-6%;
+}
+.hero-left::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(17,16,23,.7) 0%,rgba(17,16,23,.3) 60%,rgba(17,16,23,.55) 100%);
+}
+/* Right panel — after photo */
+.hero-right{
+  position:relative;
+  background:url('miami-staircase-led-renovation-finished.jpg') center 20%/cover;
+}
+.hero-right::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(315deg,rgba(17,16,23,.65) 0%,rgba(17,16,23,.2) 60%,rgba(17,16,23,.45) 100%);
+}
+/* Overlay content sits above both panels */
+.hero-content{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:0 clamp(18px,5vw,64px) clamp(48px,7vh,72px);
+  z-index:2;
   pointer-events:none;
 }
+.hero-inner{pointer-events:auto}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(132,0,47,.9);color:#fff;
+  font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:8px 16px;border-radius:50px;
+  margin-bottom:24px;
+  backdrop-filter:blur(8px);
+}
+.hero-tag::before{content:"";width:5px;height:5px;border-radius:50%;background:#fff;opacity:.7}
+h1.hero-title{
+  font-size:clamp(52px,9.5vw,112px);
+  font-weight:900;
+  color:#fff;
+  line-height:.95;
+  letter-spacing:-.03em;
+  margin-bottom:28px;
+  max-width:13ch;
+  text-shadow:0 4px 40px rgba(17,16,23,.4);
+}
+h1.hero-title .it{color:var(--maroon-soft);font-style:italic;font-weight:700}
+.hero-sub{
+  font-size:clamp(15px,1.6vw,18px);
+  color:rgba(255,255,255,.75);
+  max-width:460px;
+  margin-bottom:36px;
+  line-height:1.65;
+  font-weight:400;
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.hero-stats{
+  display:flex;gap:clamp(24px,4vw,52px);
+  padding-top:28px;
+  border-top:1px solid rgba(255,255,255,.15);
+  flex-wrap:wrap;
+}
+.hero-stat b{
+  font-family:'Archivo',sans-serif;
+  font-size:clamp(32px,5vw,52px);
+  font-weight:900;
+  font-style:italic;
+  color:#fff;
+  display:block;
+  line-height:1;
+}
+.hero-stat span{
+  font-size:11px;text-transform:uppercase;letter-spacing:.14em;
+  color:rgba(255,255,255,.5);font-weight:600;margin-top:6px;display:block;
+}
+/* Before/After labels on panels */
+.panel-label{
+  position:absolute;top:32px;z-index:3;
+  font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:#fff;
+  padding:6px 14px;border-radius:50px;backdrop-filter:blur(8px);
+  pointer-events:none;
+}
+.label-before{left:24px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2)}
+.label-after{right:24px;background:rgba(132,0,47,.85)}
+@media(max-width:720px){
+  .hero{grid-template-columns:1fr;min-height:100svh}
+  .hero-left{
+    display:none;
+  }
+  .hero-right{
+    position:absolute;inset:0;
+    clip-path:none;
+    margin:0;
+  }
+  .hero-right::after{
+    background:linear-gradient(to top,rgba(17,16,23,.88) 0%,rgba(17,16,23,.55) 50%,rgba(17,16,23,.35) 100%);
+  }
+  .hero-content{justify-content:flex-end}
+  h1.hero-title{font-size:clamp(44px,12vw,72px);max-width:none}
+  .panel-label{display:none}
+}
+
+/* ─── TICKER ──────────────────────────────────────────────── */
+.ticker{
+  background:var(--maroon);
+  overflow:hidden;padding:14px 0;
+}
+.ticker-track{
+  display:flex;gap:0;white-space:nowrap;
+  animation:ticker 36s linear infinite;
+  width:max-content;
+}
+.ticker-item{
+  font-family:'Archivo',sans-serif;font-weight:700;font-style:italic;
+  font-size:15px;color:#fff;
+  display:inline-flex;align-items:center;gap:0;
+  padding:0 28px;
+}
+.ticker-item::after{content:"✦";font-style:normal;font-size:10px;opacity:.6;padding-left:28px}
+@keyframes ticker{to{transform:translateX(-50%)}}
+
+/* ─── SECTION BASE ─────────────────────────────────────────── */
+section{padding:clamp(72px,10vw,120px) 0}
+.sec-label{
+  display:flex;align-items:center;gap:14px;
+  font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.2em;color:var(--maroon);
+  margin-bottom:20px;
+}
+.sec-label::before{content:"";width:28px;height:1px;background:var(--maroon)}
+.sec-title{
+  font-size:clamp(36px,5.5vw,64px);
+  font-weight:900;
+  margin-bottom:16px;
+  line-height:1.0;
+}
+.sec-desc{font-size:17px;color:var(--muted);max-width:580px;line-height:1.7}
+
+/* ─── SERVICES ─────────────────────────────────────────────── */
+.services-section{background:var(--cream)}
+.services-header{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,80px);
+  align-items:end;margin-bottom:56px;
+}
+.services-header-cta{padding-bottom:6px}
+.services-header-cta p{font-size:15px;color:var(--muted);margin-bottom:24px;max-width:320px;line-height:1.65}
+.svc-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  background:var(--line);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+}
+.svc{
+  background:var(--paper);
+  padding:36px 32px 34px;
+  position:relative;
+  transition:background .25s;
+}
+.svc:hover{background:#fff}
+.svc::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(132,0,47,.04),transparent);
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.svc:hover::after{opacity:1}
+.svc-num{
+  font-family:'Archivo',sans-serif;font-style:italic;font-size:13px;
+  color:var(--maroon);font-weight:700;letter-spacing:.08em;
+  margin-bottom:20px;
+}
+.svc-icon{
+  width:40px;height:40px;
+  color:var(--maroon);margin-bottom:18px;
+}
+.svc h3{
+  font-size:20px;font-weight:800;letter-spacing:-.02em;
+  margin-bottom:10px;
+}
+.svc p{font-size:14.5px;color:var(--muted);line-height:1.65}
+.svc-photo{
+  margin-top:20px;
+  border-radius:8px;overflow:hidden;
+  aspect-ratio:16/9;
+  background:var(--cream) center/cover;
+}
+.svc-photo img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.svc:hover .svc-photo img{transform:scale(1.04)}
+@media(max-width:860px){.svc-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.svc-grid{grid-template-columns:1fr}.services-header{grid-template-columns:1fr}}
+
+/* ─── PROCESS ──────────────────────────────────────────────── */
+.process-section{background:var(--ink);color:#fff}
+.process-section .sec-label{color:var(--maroon-soft)}
+.process-section .sec-label::before{background:var(--maroon-soft)}
+.process-section .sec-title{color:#fff}
+.process-section .sec-desc{color:rgba(255,255,255,.5)}
+.proc-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:60px;border-top:1px solid var(--line-light)}
+.proc-step{
+  padding:44px 32px 36px 0;
+  border-right:1px solid var(--line-light);
+  padding-right:32px;
+  padding-left:0;
+}
+.proc-step:first-child{padding-left:0}
+.proc-step:last-child{border-right:0;padding-right:0}
+.proc-step:not(:first-child){padding-left:32px}
+.step-num{
+  font-family:'Archivo',sans-serif;font-style:italic;font-weight:900;
+  font-size:72px;line-height:1;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.18);
+  margin-bottom:24px;
+  transition:-webkit-text-stroke-color .3s,color .3s;
+}
+.proc-step:hover .step-num{
+  -webkit-text-stroke-color:var(--maroon-soft);
+  color:transparent;
+}
+.proc-step h3{font-size:21px;font-weight:800;color:#fff;margin-bottom:10px}
+.proc-step p{font-size:14.5px;color:rgba(255,255,255,.48);line-height:1.65}
+.proc-img{
+  margin-top:60px;
+  border-radius:var(--r-lg);overflow:hidden;
+  display:grid;grid-template-columns:1.6fr 1fr;
+  gap:2px;height:360px;
+  background:var(--line-lighter);
+}
+.proc-img-a{background:url('miami-luxury-lobby-renovation-finished.jpg') center/cover}
+.proc-img-b{background:url('miami-renovation-crew-trim-work.jpg') center top/cover}
+@media(max-width:760px){
+  .proc-wrap{grid-template-columns:1fr 1fr}
+  .proc-step:nth-child(2){border-right:0;padding-right:0}
+  .proc-step:nth-child(2){border-right:0}
+  .proc-step:nth-child(3){padding-left:0;border-right:1px solid var(--line-light)}
+  .proc-step:nth-child(4){border-right:0;padding-right:0}
+  .proc-img{grid-template-columns:1fr;height:240px}
+  .proc-img-b{display:none}
+}
+@media(max-width:480px){.proc-wrap{grid-template-columns:1fr}}
+
+/* ─── ABOUT ────────────────────────────────────────────────── */
+.about-section{background:var(--paper);overflow:hidden}
+.about-grid{
+  display:grid;grid-template-columns:.9fr 1.1fr;
+  gap:clamp(40px,6vw,88px);align-items:center;
+}
+.portrait-wrap{position:relative}
+.portrait-frame{
+  aspect-ratio:3/4;border-radius:var(--r-lg);overflow:hidden;
+  background:var(--cream);
+  box-shadow:var(--shadow-lg);
+  position:relative;
+}
+.portrait-frame img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
+.portrait-badge{
+  position:absolute;bottom:-20px;right:-20px;
+  width:120px;height:120px;border-radius:50%;
+  background:var(--maroon);color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  border:4px solid var(--paper);
+  box-shadow:var(--shadow);
+}
+.portrait-badge b{font-family:'Archivo',sans-serif;font-size:28px;font-weight:900;font-style:italic;line-height:1}
+.portrait-badge span{font-size:9px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;opacity:.8;margin-top:2px}
+.about-content .sec-label{color:var(--maroon)}
+.about-content .sec-label::before{background:var(--maroon)}
+.about-content .sec-title{margin-bottom:8px}
+.about-role{
+  font-size:12px;text-transform:uppercase;letter-spacing:.18em;
+  color:var(--maroon);font-weight:700;font-family:'Archivo',sans-serif;
+  margin-bottom:28px;
+}
+.about-content p{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:16px;max-width:520px}
+.about-quote{
+  font-family:'Archivo',sans-serif;font-style:italic;font-weight:700;
+  font-size:clamp(18px,2.4vw,24px);
+  color:var(--ink);line-height:1.3;
+  border-left:3px solid var(--maroon);
+  padding:16px 0 16px 24px;
+  margin:28px 0;
+  max-width:480px;
+}
+.about-sig{display:flex;align-items:center;gap:16px;margin-top:28px}
+.sig-line{flex:1;height:1px;background:var(--line)}
+.sig-name{font-family:'Archivo',sans-serif;font-style:italic;font-weight:800;font-size:19px;color:var(--ink);white-space:nowrap}
+.sig-phone a{color:var(--maroon);font-weight:600;font-size:15px;letter-spacing:.02em}
+@media(max-width:840px){
+  .about-grid{grid-template-columns:1fr}
+  .portrait-wrap{max-width:340px}
+  .portrait-badge{width:96px;height:96px}
+  .portrait-badge b{font-size:22px}
+}
+
+/* ─── GALLERY ──────────────────────────────────────────────── */
+.gallery-section{background:var(--ink)}
+.gallery-section .sec-label{color:var(--maroon-soft)}
+.gallery-section .sec-label::before{background:var(--maroon-soft)}
+.gallery-section .sec-title{color:#fff}
+.gallery-section .sec-desc{color:rgba(255,255,255,.45)}
+.gallery-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:20px}
+/* Mosaic layout */
+.gallery-mosaic{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:64px;
+  gap:6px;
+}
+.gtile{
+  position:relative;border-radius:var(--r);overflow:hidden;
+  background:var(--ink-2) center/cover;
+  cursor:pointer;
+}
+.gtile:hover .gtile-img{transform:scale(1.06)}
+.gtile-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;transition:transform .55s ease;
+}
+.gtile::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(17,16,23,.7) 0%,rgba(17,16,23,.0) 50%);
+  z-index:1;transition:opacity .3s;
+}
+.gtile:hover::after{opacity:1.0}
+.gtile-caption{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  padding:18px 16px 14px;
+  transform:translateY(4px);opacity:0;
+  transition:all .3s ease;pointer-events:none;
+}
 .gtile:hover .gtile-caption,.gtile:focus-within .gtile-caption{transform:translateY(0);opacity:1}
-.gtile-caption h4{font-family:'Archivo';font-size:15px;font-weight:700;color:#fff;margin-bottom:3px;letter-spacing:-.01em}
-.gtile-caption p{font-size:11.5px;color:rgba(255,255,255,.6);letter-spacing:.07em;text-transform:uppercase;font-weight:500}
-/* background images — each tile */
-.g1{background-image:url('miami-luxury-lobby-renovation-finished.jpg')}
-.g2{background-image:url('miami-commercial-office-renovation-finished.jpg')}
-.g3{background-image:url('miami-interior-painting-finished.jpg')}
-.g4{background-image:url('miami-renovation-crew-trim-work.jpg');background-position:center top}
-.g5{background-image:url('miami-drywall-sanding-finish.jpg');background-position:center top}
-.g6{background-image:url('miami-drywall-taping-coffered-ceiling.jpg')}
-.g7{background-image:url('miami-ceiling-plaster-crew.jpg');background-position:center top}
-.g8{background-image:url('miami-commercial-painting-prep.jpg')}
-.g9{background-image:url('miami-hotel-corridor-painting-finished.jpg')}
-.g10{background-image:url('miami-highrise-condo-drywall-repair.jpg')}
-.g11{background-image:url('miami-staircase-painting-prep.jpg');background-position:center top}
-.g12{background-image:url('miami-interior-painting-open-plan.jpg')}
-.g13{background-image:url('miami-home-renovation-demo.jpg');background-position:center top}
-.g14{background-image:url('miami-drywall-primer-interior.jpg')}
-.g15{background-image:url('miami-drywall-prime-bright-room.jpg')}
-.g16{background-image:url('miami-commercial-corridor-renovation.jpg')}
-.g17{background-image:url('miami-commercial-framing-buildout.jpg')}
-.g18{background-image:url('miami-drywall-tile-renovation.jpg')}
-.g19{background-image:url('miami-drywall-prime-bright-room.jpg')}
-.g20{background-image:url('popcorn-ceiling-removal-miami-before.jpg');background-position:center top}
-@media(max-width:880px){.gallery-grid{grid-template-columns:1fr 1fr}.gallery-hero{height:380px}}
-@media(max-width:520px){.gallery-grid{grid-template-columns:1fr}.gallery-hero{height:280px}.gallery-hero-label h3{font-size:22px}}
+.gtile-caption h4{font-family:'Archivo',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
+.gtile-caption p{font-size:11px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+/* Span assignments */
+.gt1{grid-column:span 5;grid-row:span 8}
+.gt2{grid-column:span 4;grid-row:span 5}
+.gt3{grid-column:span 3;grid-row:span 5}
+.gt4{grid-column:span 4;grid-row:span 7}
+.gt5{grid-column:span 4;grid-row:span 7}
+.gt6{grid-column:span 4;grid-row:span 7}
+.gt7{grid-column:span 3;grid-row:span 6}
+.gt8{grid-column:span 3;grid-row:span 6}
+.gt9{grid-column:span 3;grid-row:span 6}
+.gt10{grid-column:span 3;grid-row:span 6}
+.gt11{grid-column:span 4;grid-row:span 5}
+.gt12{grid-column:span 4;grid-row:span 5}
+.gt13{grid-column:span 4;grid-row:span 5}
+.gt14{grid-column:span 3;grid-row:span 5}
+.gt15{grid-column:span 3;grid-row:span 5}
+.gt16{grid-column:span 3;grid-row:span 5}
+.gt17{grid-column:span 3;grid-row:span 5}
+.gt18{grid-column:span 4;grid-row:span 5}
+.gt19{grid-column:span 4;grid-row:span 5}
+.gt20{grid-column:span 4;grid-row:span 5}
+@media(max-width:900px){
+  .gallery-mosaic{grid-template-columns:repeat(6,1fr);grid-auto-rows:56px}
+  .gt1{grid-column:span 4;grid-row:span 7}
+  .gt2{grid-column:span 2;grid-row:span 4}
+  .gt3{grid-column:span 2;grid-row:span 4}
+  .gt4,.gt5,.gt6{grid-column:span 3;grid-row:span 6}
+  .gt7,.gt8,.gt9,.gt10{grid-column:span 3;grid-row:span 5}
+  .gt11,.gt12,.gt13,.gt14{grid-column:span 3;grid-row:span 5}
+  .gt15,.gt16,.gt17,.gt18,.gt19,.gt20{grid-column:span 2;grid-row:span 5}
+}
+@media(max-width:560px){
+  .gallery-mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:56px}
+  .gt1,.gt2,.gt3,.gt4,.gt5,.gt6,.gt7,.gt8,.gt9,.gt10{grid-column:span 1;grid-row:span 6}
+  .gt11,.gt12,.gt13,.gt14,.gt15,.gt16,.gt17,.gt18,.gt19,.gt20{grid-column:span 1;grid-row:span 5}
+}
 
-/* AREAS */
-.areas{background:var(--cream)}
-.area-list{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
-.area-list span{font-size:15px;letter-spacing:.04em;color:var(--ink);border:1px solid var(--line);padding:12px 24px;border-radius:50px;transition:all .25s;background:var(--paper)}
-.area-list span:hover{border-color:var(--maroon);color:var(--maroon)}
+/* ─── AREAS ────────────────────────────────────────────────── */
+.areas-section{background:var(--cream)}
+.areas-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:clamp(40px,6vw,80px);align-items:start}
+.area-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.area-chip{
+  font-size:14px;font-weight:500;
+  padding:10px 20px;border-radius:50px;
+  border:1.5px solid var(--line-dark);
+  color:var(--ink);background:var(--paper);
+  transition:all .22s;
+}
+.area-chip:hover,.area-chip.main{
+  border-color:var(--maroon);color:var(--maroon);
+  background:rgba(132,0,47,.05);
+}
+.areas-image{
+  border-radius:var(--r-lg);overflow:hidden;
+  aspect-ratio:16/10;
+  box-shadow:var(--shadow);
+}
+.areas-image img{width:100%;height:100%;object-fit:cover}
+@media(max-width:780px){.areas-inner{grid-template-columns:1fr}}
 
-/* CTA */
-.cta{background:var(--maroon);color:#fff;text-align:center;position:relative;overflow:hidden}
-.cta::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 44px,rgba(255,255,255,.03) 44px 45px)}
-.cta .wrap{position:relative}
-.cta .eyebrow{justify-content:center;color:#f0d4dd}
-.cta .eyebrow::before{background:#f0d4dd}
-.cta h2{font-size:clamp(42px,7vw,88px);margin-bottom:14px}
-.cta h2 .it{font-style:italic}
-.cta p{font-size:19px;color:#f3dde4;max-width:520px;margin:0 auto 40px}
-.cta-phone{display:inline-flex;align-items:center;gap:16px;background:#fff;color:var(--maroon);font-family:'Archivo';font-weight:800;font-size:clamp(28px,4vw,42px);padding:16px 40px;border-radius:8px;transition:transform .15s,box-shadow .25s;box-shadow:0 24px 56px -20px rgba(0,0,0,.5)}
-.cta-phone:hover{transform:translateY(-3px)}
-.cta-sub{margin-top:28px;font-size:12.5px;color:#f0d4dd;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+/* ─── CONTACT CTA ──────────────────────────────────────────── */
+.cta-section{
+  background:var(--ink);
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 120%,rgba(132,0,47,.35),transparent);
+  pointer-events:none;
+}
+.cta-wrap{position:relative;z-index:1}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center}
+.cta-left .sec-label{color:var(--maroon-soft)}
+.cta-left .sec-label::before{background:var(--maroon-soft)}
+.cta-left .sec-title{color:#fff;margin-bottom:16px}
+.cta-left p{font-size:17px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:36px}
+.cta-phone-btn{
+  display:inline-flex;align-items:center;gap:14px;
+  color:#fff;
+  font-family:'Archivo',sans-serif;font-weight:900;
+  font-size:clamp(26px,4vw,40px);
+  letter-spacing:-.02em;
+  transition:transform .15s;
+}
+.cta-phone-btn svg{width:34px;height:34px;color:var(--maroon-soft);flex:none}
+.cta-phone-btn:hover{transform:translateX(4px)}
+.cta-sub-note{margin-top:20px;font-size:12px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+/* Contact form */
+.cta-form-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line-lighter);
+  border-radius:var(--r-lg);
+  padding:40px 36px;
+  backdrop-filter:blur(12px);
+}
+.cta-form-card h3{
+  font-family:'Archivo',sans-serif;font-size:20px;font-weight:800;
+  color:#fff;margin-bottom:24px;letter-spacing:-.01em;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{margin-bottom:14px}
+.form-group label{
+  display:block;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:rgba(255,255,255,.4);margin-bottom:7px;
+  font-family:'Archivo',sans-serif;
+}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r);padding:13px 16px;
+  color:#fff;font-family:'Inter',sans-serif;font-size:15px;
+  transition:border-color .22s,background .22s;
+  outline:none;
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.25)}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+  border-color:var(--maroon-soft);background:rgba(255,255,255,.1);
+}
+.form-group textarea{height:100px;resize:vertical}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,255,.4)' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-color:rgba(255,255,255,.07);cursor:pointer}
+.form-group select option{background:#1e1924;color:#fff}
+.form-submit{
+  width:100%;padding:15px;border:0;
+  background:var(--maroon);color:#fff;
+  border-radius:var(--r);
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;
+  text-transform:uppercase;letter-spacing:.08em;cursor:pointer;
+  transition:background .22s,transform .15s;margin-top:6px;
+}
+.form-submit:hover{background:var(--maroon-mid);transform:translateY(-2px)}
+.form-msg{display:none;padding:14px;border-radius:var(--r);font-size:14px;margin-top:12px;text-align:center;font-weight:600}
+.form-msg.success{background:rgba(40,170,100,.15);color:#5dba88;border:1px solid rgba(40,170,100,.25);display:block}
+.form-msg.error{background:rgba(220,60,60,.15);color:#e07070;border:1px solid rgba(220,60,60,.25);display:block}
+@media(max-width:840px){
+  .cta-grid{grid-template-columns:1fr}
+  .cta-form-card{padding:32px 24px}
+}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
 
-/* FOOTER */
-footer{background:var(--ink);color:var(--paper);padding:60px 0 34px;border-top:1px solid var(--line-light)}
-.foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px;padding-bottom:38px;border-bottom:1px solid var(--line-light)}
-.foot-brand{max-width:320px}
-.foot-logo{height:64px;width:auto;margin-bottom:18px}
-.foot-brand p{color:var(--muted);font-size:14.5px}
-.foot-col h4{text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--maroon-soft);font-weight:600;margin-bottom:18px}
-.foot-col a,.foot-col p{display:block;color:#c8bdc1;font-size:15px;margin-bottom:11px;transition:color .2s}
+/* ─── FOOTER ───────────────────────────────────────────────── */
+footer{
+  background:var(--ink-2);
+  color:#fff;
+  padding:64px 0 32px;
+  border-top:1px solid var(--line-lighter);
+}
+.foot-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:clamp(28px,5vw,60px);padding-bottom:48px;
+  border-bottom:1px solid var(--line-lighter);
+}
+.foot-logo{height:56px;width:auto;margin-bottom:20px}
+.foot-brand p{font-size:14px;color:rgba(255,255,255,.4);line-height:1.7;max-width:260px;margin-bottom:20px}
+.foot-socials{display:flex;gap:8px}
+.foot-socials a{
+  width:38px;height:38px;border-radius:8px;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line-lighter);
+  color:rgba(255,255,255,.4);
+  transition:all .2s;
+}
+.foot-socials a:hover{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.foot-socials svg{width:17px;height:17px}
+.foot-col h4{
+  font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.18em;
+  color:rgba(255,255,255,.3);margin-bottom:18px;
+}
+.foot-col a,.foot-col p{
+  display:block;font-size:14px;
+  color:rgba(255,255,255,.5);
+  margin-bottom:10px;transition:color .2s;
+}
 .foot-col a:hover{color:#fff}
-.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:26px;font-size:13px;color:var(--muted)}
-.foot-bottom a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.foot-bottom{
+  padding-top:28px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:12px;
+  font-size:13px;color:rgba(255,255,255,.3);
+}
+.foot-bottom a{color:rgba(255,255,255,.3);text-decoration:underline;text-underline-offset:2px}
 .foot-bottom a:hover{color:#fff}
-.foot-cols{display:flex;gap:clamp(40px,8vw,90px);flex-wrap:wrap}
-.socials{display:flex;gap:12px;margin-top:20px}
-.socials a{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid var(--line-light);color:#c8bdc1;transition:background .2s,color .2s,border-color .2s,transform .15s}
-.socials a:hover{background:var(--maroon);color:#fff;border-color:var(--maroon);transform:translateY(-2px)}
-.socials svg{width:20px;height:20px}
+@media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.foot-grid{grid-template-columns:1fr}}
 
-/* ACCESSIBILITY TOOLBAR */
-.a11y-fab{position:fixed;right:18px;bottom:18px;z-index:310;width:56px;height:56px;border-radius:50%;background:var(--maroon);color:#fff;border:2px solid #fff;box-shadow:0 8px 26px rgba(0,0,0,.4);cursor:pointer;display:grid;place-items:center;transition:bottom .3s}
+/* ─── ACCESSIBILITY TOOLBAR ────────────────────────────────── */
+.a11y-fab{position:fixed;right:18px;bottom:80px;z-index:310;width:52px;height:52px;border-radius:50%;background:var(--maroon);color:#fff;border:2px solid rgba(255,255,255,.25);box-shadow:0 8px 26px rgba(0,0,0,.35);cursor:pointer;display:grid;place-items:center;transition:bottom .3s,background .2s}
 .a11y-fab:hover{background:var(--maroon-deep)}
-.a11y-fab svg{width:28px;height:28px}
+.a11y-fab svg{width:26px;height:26px}
 body.consent-open .a11y-fab{bottom:104px}
-.a11y-panel{position:fixed;right:18px;bottom:86px;z-index:311;width:300px;max-width:calc(100vw - 36px);background:var(--ink);color:var(--paper);border:1px solid var(--maroon);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.5);padding:20px;display:none}
+.a11y-panel{position:fixed;right:18px;bottom:148px;z-index:311;width:296px;max-width:calc(100vw - 36px);background:var(--ink);color:#fff;border:1px solid var(--maroon);border-radius:var(--r-lg);box-shadow:0 20px 60px rgba(0,0,0,.5);padding:20px;display:none}
 .a11y-panel.open{display:block}
-.a11y-panel h2{font-family:'Archivo';font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:4px}
-.a11y-sub{font-size:12.5px;color:#c8bdc1;margin-bottom:16px}
-.a11y-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,.1)}
-.a11y-row span{font-size:14px;font-weight:500}
-.a11y-toggle{appearance:none;width:46px;height:26px;border-radius:50px;background:#3a2e33;position:relative;cursor:pointer;border:0;flex:none;transition:background .2s}
-.a11y-toggle::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.a11y-panel h2{font-family:'Archivo',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:4px}
+.a11y-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:14px}
+.a11y-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,.08)}
+.a11y-row span{font-size:13.5px;font-weight:500}
+.a11y-toggle{appearance:none;width:44px;height:24px;border-radius:50px;background:#2d2635;position:relative;cursor:pointer;border:0;flex:none;transition:background .2s}
+.a11y-toggle::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}
 .a11y-toggle[aria-pressed="true"]{background:var(--maroon)}
 .a11y-toggle[aria-pressed="true"]::after{left:23px}
 .a11y-textsize{display:flex;gap:6px}
-.a11y-textsize button{width:34px;height:30px;border-radius:6px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;cursor:pointer;font-weight:700;font-family:'Archivo'}
+.a11y-textsize button{width:32px;height:28px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;cursor:pointer;font-weight:700;font-family:'Archivo',sans-serif;font-size:13px}
 .a11y-textsize button.active{background:var(--maroon);border-color:var(--maroon)}
-.a11y-reset{margin-top:14px;width:100%;padding:10px;border-radius:6px;background:transparent;border:1px solid rgba(255,255,255,.18);color:#fff;cursor:pointer;font-weight:600;font-size:13px}
+.a11y-reset{margin-top:12px;width:100%;padding:9px;border-radius:6px;background:transparent;border:1px solid rgba(255,255,255,.15);color:#fff;cursor:pointer;font-weight:600;font-size:13px}
 html.a11y-bigtext{font-size:118.75%}
 html.a11y-hugetext{font-size:137.5%}
 html.a11y-contrast body{background:#000!important;color:#fff!important}
-html.a11y-contrast section,html.a11y-contrast .services,html.a11y-contrast .areas{background:#000!important}
-html.a11y-contrast .svc,html.a11y-contrast .area-list span{background:#111!important;border-color:#fff!important}
-html.a11y-contrast .sec-head p,html.a11y-contrast .svc p,html.a11y-contrast .step p,html.a11y-contrast .hero-sub{color:#fff!important}
+html.a11y-contrast section,html.a11y-contrast .services-section,html.a11y-contrast .areas-section{background:#000!important}
+html.a11y-contrast .svc{background:#111!important}
+html.a11y-contrast .area-chip{background:#111!important;border-color:#fff!important}
 html.a11y-readable body,html.a11y-readable h1,html.a11y-readable h2,html.a11y-readable h3{font-family:Verdana,Tahoma,sans-serif!important;letter-spacing:0!important;font-style:normal!important}
 html.a11y-nomotion *{animation:none!important;transition:none!important}
-html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-cta):not(.cta-phone){text-decoration:underline!important}
+html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-phone):not(.cta-phone-btn){text-decoration:underline!important}
 
-/* CONSENT */
-.consent{position:fixed;left:0;right:0;bottom:0;z-index:300;background:var(--ink);color:var(--paper);border-top:2px solid var(--maroon);padding:20px clamp(20px,5vw,52px);display:none}
+/* ─── COOKIE CONSENT ───────────────────────────────────────── */
+.consent{position:fixed;left:0;right:0;bottom:0;z-index:300;background:var(--ink);color:#fff;border-top:2px solid var(--maroon);padding:18px clamp(18px,5vw,52px);display:none}
 .consent.show{display:block}
-.consent-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:28px;flex-wrap:wrap;justify-content:space-between}
-.consent p{font-size:14.5px;color:#c8bdc1;max-width:680px;margin:0;line-height:1.55}
+.consent-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:space-between}
+.consent p{font-size:14px;color:rgba(255,255,255,.55);max-width:680px;margin:0;line-height:1.55}
 .consent a{color:var(--maroon-soft);text-decoration:underline;text-underline-offset:2px}
-.consent-actions{display:flex;gap:10px;flex-wrap:wrap}
-.consent-btn{padding:11px 22px;border-radius:6px;font-weight:600;font-size:13.5px;cursor:pointer;border:1px solid transparent;font-family:inherit;transition:background .2s,border-color .2s}
+.consent-actions{display:flex;gap:10px;flex-shrink:0}
+.consent-btn{padding:10px 20px;border-radius:var(--r);font-weight:600;font-size:13px;cursor:pointer;border:1px solid transparent;font-family:inherit;transition:background .2s,border-color .2s}
 .consent-accept{background:var(--maroon);color:#fff}
 .consent-accept:hover{background:var(--maroon-deep)}
-.consent-decline{background:transparent;color:var(--paper);border-color:var(--line-light)}
-.consent-decline:hover{border-color:var(--maroon-soft)}
-@media(max-width:680px){.consent-inner{flex-direction:column;align-items:flex-start}.consent-actions{width:100%}.consent-btn{flex:1}}
+.consent-decline{background:transparent;color:#fff;border-color:rgba(255,255,255,.2)}
+.consent-decline:hover{border-color:rgba(255,255,255,.5)}
+@media(max-width:680px){.consent-inner{flex-direction:column;align-items:flex-start}.consent-actions{width:100%}.consent-btn{flex:1;text-align:center}}
 </style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
 
-<nav id="nav" aria-label="Primary">
-  <a href="#top" aria-label="Ms Renovations Pro home"><img src="ms-renovations-pro-logo.png" alt="Ms Renovations Pro — woman-owned renovation company in Miami FL" class="nav-logo"></a>
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<nav id="nav" aria-label="Primary navigation">
+  <a href="#top" aria-label="Ms Renovations Pro home">
+    <img src="ms-renovations-pro-logo.png" alt="Ms Renovations Pro" class="nav-logo">
+  </a>
   <div class="nav-links" id="navLinks">
-    <a href="#services">Services</a><a href="#process">Process</a><a href="#about">About Her</a><a href="#work">Our Work</a><a href="#areas">Areas</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#about">About</a>
+    <a href="#work">Our Work</a>
+    <a href="#areas">Areas</a>
+    <a href="#contact">Contact</a>
   </div>
   <div class="nav-right">
     <div class="nav-socials">
-      <a href="https://www.instagram.com/msrenovationspro" target="_blank" rel="noopener noreferrer" aria-label="Ms Renovations Pro on Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      <a href="https://www.instagram.com/msrenovationspro" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a href="https://www.facebook.com/MsRenovationsPro/" target="_blank" rel="noopener noreferrer" aria-label="Ms Renovations Pro on Facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M14 9h3V5.5h-3c-2.2 0-3.5 1.4-3.5 3.6V11H8v3.5h2.5V22h3.5v-7.5h2.6l.4-3.5H14V9.5c0-.4.2-.5.6-.5z"/></svg>
+      <a href="https://www.facebook.com/MsRenovationsPro/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V5.5h-3c-2.2 0-3.5 1.4-3.5 3.6V11H8v3.5h2.5V22h3.5v-7.5h2.6l.4-3.5H14V9.5c0-.4.2-.5.6-.5z"/></svg>
       </a>
     </div>
-    <a href="tel:7549008247" class="nav-cta">
-      <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <a href="tel:7549008247" class="nav-phone" aria-label="Call Ms Renovations Pro">
+      <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       754.900.8247
     </a>
-    <button class="burger" id="burger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+    <button class="burger" id="burger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
 <a id="top"></a>
 <main id="main">
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
 <header>
-  <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow">Woman-Owned · Miami &amp; South Florida</span>
-      <h1 class="hero-title"><span class="sr-only">Miami renovation and remodeling contractor. </span>Renovation,<br>done with<br><span class="it">intention.</span></h1>
-      <p class="hero-sub">Thoughtful transformations and flawless finishes from a crew that treats your space like it matters. Popcorn ceilings, drywall, paint, flooring, stairs, full remodels.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn-primary">Book a free quote <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="#work" class="btn-ghost">View the work</a>
-      </div>
-      <div class="hero-trust">
-        <div><b>500+</b><span>Projects finished</span></div>
-        <div><b>15+</b><span>Years of craft</span></div>
-        <div><b>5★</b><span>Local reputation</span></div>
-      </div>
+  <div class="hero" id="heroPanel">
+    <div class="hero-left" aria-hidden="true">
+      <div class="panel-label label-before">Before</div>
     </div>
-    <div>
-      <div class="reveal" id="reveal">
-        <div class="layer before">
-          <img src="popcorn-ceiling-removal-miami-before.jpg" alt="Popcorn ceiling being removed — before renovation in Miami" class="ph-img">
-          <div class="grad"></div><div class="tag">Before</div>
-          <div class="caption"><div class="label-room">Popcorn ceiling</div><div class="sub">Dated texture · in progress</div></div>
+    <div class="hero-right" aria-hidden="true">
+      <div class="panel-label label-after">After</div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-inner">
+        <div class="hero-tag">
+          <span class="sr-only">Award: </span>Woman-Owned · Miami &amp; South Florida
         </div>
-        <div class="layer after" id="afterLayer">
-          <img src="miami-staircase-led-renovation-finished.jpg" alt="Finished LED staircase renovation in Miami by Ms Renovations Pro" class="ph-img">
-          <div class="grad"></div><div class="tag">After</div>
-          <div class="caption"><div class="label-room">Finished &amp; flawless</div><div class="sub">LED staircase · refinished treads</div></div>
+        <h1 class="hero-title">
+          <span class="sr-only">Miami renovation and remodeling contractor. </span>
+          Renovation<br>done with<br><span class="it">intention.</span>
+        </h1>
+        <p class="hero-sub">Flawless finishes from a crew that treats your space like it matters. Popcorn ceilings, drywall, paint, flooring, stairs, full remodels.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">
+            Get a free quote
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#work" class="btn-ghost-light">See the work</a>
         </div>
-        <div class="handle" id="handle" role="slider" tabindex="0" aria-label="Reveal before and after renovation" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% revealed"></div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>500+</b><span>Projects done</span></div>
+          <div class="hero-stat"><b>15+</b><span>Years of craft</span></div>
+          <div class="hero-stat"><b>5★</b><span>Local reputation</span></div>
+        </div>
       </div>
-      <p class="reveal-cap">✦ Drag to reveal the transformation ✦</p>
     </div>
   </div>
 </header>
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Popcorn Ceiling Removal</span><span>Drywall &amp; Repair</span><span>Interior Painting</span><span>Flooring</span><span>Stair Refinishing</span><span>Bathroom Remodels</span><span>Commercial Buildouts</span>
-    <span>Popcorn Ceiling Removal</span><span>Drywall &amp; Repair</span><span>Interior Painting</span><span>Flooring</span><span>Stair Refinishing</span><span>Bathroom Remodels</span><span>Commercial Buildouts</span>
+<!-- ─── TICKER ────────────────────────────────────────────────── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Popcorn Ceiling Removal</span>
+    <span class="ticker-item">Drywall &amp; Repair</span>
+    <span class="ticker-item">Interior Painting</span>
+    <span class="ticker-item">Flooring &amp; Tile</span>
+    <span class="ticker-item">Stair Refinishing</span>
+    <span class="ticker-item">Bathroom Remodels</span>
+    <span class="ticker-item">Commercial Buildouts</span>
+    <span class="ticker-item">Popcorn Ceiling Removal</span>
+    <span class="ticker-item">Drywall &amp; Repair</span>
+    <span class="ticker-item">Interior Painting</span>
+    <span class="ticker-item">Flooring &amp; Tile</span>
+    <span class="ticker-item">Stair Refinishing</span>
+    <span class="ticker-item">Bathroom Remodels</span>
+    <span class="ticker-item">Commercial Buildouts</span>
   </div>
 </div>
 
-<section class="services" id="services">
+<!-- ─── SERVICES ─────────────────────────────────────────────── -->
+<section class="services-section" id="services">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">What we do</span>
-      <h2 class="sec-title">Whole-home work, <span class="it">one trusted crew</span></h2>
-      <p>From a single ceiling to a top-to-bottom remodel, you get the same hands-on team start to finish — no subcontractor roulette.</p>
-    </div>
-    <div class="svc-grid">
-      <article class="svc"><div class="svc-num">01</div>
-        <svg aria-hidden="true" focusable="false" class="svc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9h18M3 9l9-6 9 6M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
-        <h3>Popcorn Ceiling Removal</h3><p>Our specialty. Dust-controlled removal, skim coat, and a perfectly smooth, modern finish overhead.</p></article>
-      <article class="svc"><div class="svc-num">02</div>
-        <svg aria-hidden="true" focusable="false" class="svc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v6M15 9v6M3 15h18"/></svg>
-        <h3>Drywall &amp; Repair</h3><p>Patches, full hangs, water damage, texture matching — invisible repairs that vanish into the wall.</p></article>
-      <article class="svc"><div class="svc-num">03</div>
-        <svg aria-hidden="true" focusable="false" class="svc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M7 21V11l5-4 5 4v10M19 7l-2-2 2.5-2.5L21 4z"/></svg>
-        <h3>Painting</h3><p>Clean lines, full prep, premium coats. Color consults included so the finish looks intentional, never rushed.</p></article>
-      <article class="svc"><div class="svc-num">04</div>
-        <svg aria-hidden="true" focusable="false" class="svc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18"/><path d="M3 8h18M3 13h18M3 18h18M8 3v18M13 3v18M18 3v18"/></svg>
-        <h3>Flooring &amp; Tile</h3><p>Hardwood, LVP, tile, and refinishing — laid level and locked tight, indoors and out.</p></article>
-      <article class="svc"><div class="svc-num">05</div>
-        <svg aria-hidden="true" focusable="false" class="svc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V7l4-1V3h4v3l4-1v4l4-1v13z"/><path d="M3 21h18"/></svg>
-        <h3>Stair Refinishing</h3><p>Worn treads stripped and reborn — risers, rails, and landings finished to showroom shine.</p></article>
-      <article class="svc"><div class="svc-num">06</div>
-        <svg aria-hidden="true" focusable="false" class="svc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 22V6l8-4 8 4v16"/><path d="M9 22v-6h6v6M8 9h2M14 9h2M8 13h2M14 13h2"/></svg>
-        <h3>Bath &amp; Full Remodels</h3><p>Bathrooms, interior remodels, and full commercial buildouts — residential care, commercial-grade results.</p></article>
-    </div>
-  </div>
-</section>
-
-<section id="process">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">How it goes</span>
-      <h2 class="sec-title">Four steps, <span class="it">zero surprises</span></h2>
-    </div>
-    <div class="proc-grid">
-      <div class="step"><div class="n">01</div><h3>Walkthrough</h3><p>We come to you, see the space, and listen to what you actually want.</p></div>
-      <div class="step"><div class="n">02</div><h3>Clear Quote</h3><p>A written, itemized estimate. The number you sign is the number you pay.</p></div>
-      <div class="step"><div class="n">03</div><h3>The Work</h3><p>Same crew, dust-controlled, tidy daily. We protect your home as we go.</p></div>
-      <div class="step"><div class="n">04</div><h3>Final Walk</h3><p>We don't leave until you walk it and love it. Period.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="about" id="about">
-  <div class="wrap about-grid">
-    <div class="portrait" role="img" aria-label="Ms Renovations Pro founder and owner in company polo"></div>
-    <div>
-      <span class="eyebrow">The woman in charge</span>
-      <h2>The name on the<br>door is <span class="it">hers.</span></h2>
-      <div class="role">Founder &amp; Lead · Ms Renovations Pro</div>
-      <p>Ms Renovations Pro is built on a simple belief: renovation should feel like a partnership, not a gamble. She runs every job personally — answering the phone, walking the site, and standing behind every finish.</p>
-      <p>You'll find her on site right alongside the crew. That's the difference: the woman who quotes your project is the same one making sure it's done right.</p>
-      <div class="quote">"We don't hand your home off. We treat it like it's ours — because my name is on it."</div>
-      <div class="sign"><div class="nm">Ms Renovations Pro</div><a href="tel:7549008247" class="ph">754.900.8247 →</a></div>
-    </div>
-  </div>
-</section>
-
-<section class="gallery" id="work">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Real work, real results</span>
-      <h2 class="sec-title">Proof, <span class="it">on the wall</span></h2>
-      <p>Every photo is from an actual Ms Renovations Pro job — residential and commercial, across Miami and South Florida.</p>
-    </div>
-
-    <!-- Hero shot -->
-    <div class="gallery-hero" role="img" aria-label="Finished LED staircase renovation in Miami by Ms Renovations Pro">
-      <div class="gallery-hero-tag">Featured</div>
-      <div class="gallery-hero-label">
-        <h3>LED Staircase Refinish</h3>
-        <p>Miami · Residential · Flooring &amp; Lighting</p>
+    <div class="services-header">
+      <div>
+        <div class="sec-label"><span>What we do</span></div>
+        <h2 class="sec-title">Whole-home work,<br><em class="it">one trusted crew</em></h2>
+      </div>
+      <div class="services-header-cta">
+        <p>From a single ceiling to a top-to-bottom remodel — the same hands-on team, start to finish. No subcontractor roulette.</p>
+        <a href="#contact" class="btn-primary">Get a free estimate</a>
       </div>
     </div>
+    <div class="svc-grid">
 
-    <!-- 3-column grid — hover to reveal caption -->
-    <div class="gallery-grid">
-      <div class="gtile g1" role="img" aria-label="Luxury lobby renovation finished in Miami"><div class="zoom"></div><div class="gtile-caption"><h4>Luxury Lobby</h4><p>Miami · Commercial</p></div></div>
-      <div class="gtile g2" role="img" aria-label="Commercial office renovation complete"><div class="zoom"></div><div class="gtile-caption"><h4>Commercial Office</h4><p>South Florida · Commercial</p></div></div>
-      <div class="gtile g3" role="img" aria-label="Interior painting near-finished with black doors"><div class="zoom"></div><div class="gtile-caption"><h4>Interior Painting</h4><p>Miami · Residential</p></div></div>
-      <div class="gtile g4" role="img" aria-label="Renovation crew doing precision trim work"><div class="zoom"></div><div class="gtile-caption"><h4>Trim &amp; Carpentry</h4><p>South Florida · Crew at Work</p></div></div>
-      <div class="gtile g5" role="img" aria-label="Drywall sanding and finishing work in progress"><div class="zoom"></div><div class="gtile-caption"><h4>Drywall Finishing</h4><p>Miami · Drywall</p></div></div>
-      <div class="gtile g6" role="img" aria-label="Coffered ceiling drywall taping in progress"><div class="zoom"></div><div class="gtile-caption"><h4>Coffered Ceiling</h4><p>South Florida · Drywall</p></div></div>
-      <div class="gtile g7" role="img" aria-label="Crew member plastering ceiling on ladder"><div class="zoom"></div><div class="gtile-caption"><h4>Ceiling Plaster</h4><p>Miami · Crew at Work</p></div></div>
-      <div class="gtile g8" role="img" aria-label="Commercial space painting prep with full dust protection"><div class="zoom"></div><div class="gtile-caption"><h4>Commercial Prep</h4><p>South Florida · Painting</p></div></div>
-      <div class="gtile g9" role="img" aria-label="Finished hotel corridor with freshly painted walls"><div class="zoom"></div><div class="gtile-caption"><h4>Hotel Corridor</h4><p>Miami · Commercial Painting</p></div></div>
-      <div class="gtile g10" role="img" aria-label="High-rise condo drywall repair in Miami"><div class="zoom"></div><div class="gtile-caption"><h4>High-Rise Condo</h4><p>Brickell · Drywall</p></div></div>
-      <div class="gtile g11" role="img" aria-label="Staircase painting with full protection and ladder setup"><div class="zoom"></div><div class="gtile-caption"><h4>Staircase Painting</h4><p>Miami · Painting</p></div></div>
-      <div class="gtile g12" role="img" aria-label="Open plan interior painting complete"><div class="zoom"></div><div class="gtile-caption"><h4>Open Plan Repaint</h4><p>South Florida · Painting</p></div></div>
-      <div class="gtile g13" role="img" aria-label="Home renovation demolition and framing phase"><div class="zoom"></div><div class="gtile-caption"><h4>Demo &amp; Frame</h4><p>Miami · Full Remodel</p></div></div>
-      <div class="gtile g14" role="img" aria-label="Drywall primer coat complete on interior walls"><div class="zoom"></div><div class="gtile-caption"><h4>Drywall Primer</h4><p>South Florida · Drywall</p></div></div>
-      <div class="gtile g15" role="img" aria-label="Fresh drywall prime in bright open room"><div class="zoom"></div><div class="gtile-caption"><h4>Fresh Drywall</h4><p>Miami · Drywall</p></div></div>
-      <div class="gtile g16" role="img" aria-label="Commercial corridor renovation in progress"><div class="zoom"></div><div class="gtile-caption"><h4>Commercial Corridor</h4><p>South Florida · Commercial</p></div></div>
-      <div class="gtile g17" role="img" aria-label="Steel stud commercial framing buildout"><div class="zoom"></div><div class="gtile-caption"><h4>Commercial Framing</h4><p>Miami · Buildout</p></div></div>
-      <div class="gtile g18" role="img" aria-label="Tile and drywall renovation in progress"><div class="zoom"></div><div class="gtile-caption"><h4>Tile &amp; Drywall</h4><p>South Florida · Flooring</p></div></div>
-      <div class="gtile g20" role="img" aria-label="Popcorn ceiling removal in progress — before result"><div class="zoom"></div><div class="gtile-caption"><h4>Popcorn Removal</h4><p>Miami · Specialty</p></div></div>
+      <article class="svc">
+        <div class="svc-num">01</div>
+        <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9h18M3 9l9-6 9 6M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
+        <h3>Popcorn Ceiling Removal</h3>
+        <p>Our specialty. Dust-controlled removal, skim coat, and a perfectly smooth, modern finish overhead.</p>
+        <div class="svc-photo"><img src="popcorn-ceiling-removal-miami-before.jpg" alt="Popcorn ceiling removal in progress — Miami" loading="lazy"></div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">02</div>
+        <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v6M15 9v6M3 15h18"/></svg>
+        <h3>Drywall &amp; Repair</h3>
+        <p>Patches, full hangs, water damage, texture matching — invisible repairs that vanish into the wall.</p>
+        <div class="svc-photo"><img src="miami-drywall-sanding-finish.jpg" alt="Drywall sanding and finishing — Miami" loading="lazy"></div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">03</div>
+        <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M7 21V11l5-4 5 4v10M19 7l-2-2 2.5-2.5L21 4z"/></svg>
+        <h3>Interior Painting</h3>
+        <p>Clean lines, full prep, premium coats. Color consults included so the finish looks intentional, never rushed.</p>
+        <div class="svc-photo"><img src="miami-interior-painting-finished.jpg" alt="Interior painting finished — Miami" loading="lazy"></div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">04</div>
+        <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><path d="M3 8h18M3 13h18M3 18h18M8 3v18M13 3v18M18 3v18"/></svg>
+        <h3>Flooring &amp; Tile</h3>
+        <p>Hardwood, LVP, tile, and refinishing — laid level and locked tight, indoors and out.</p>
+        <div class="svc-photo"><img src="miami-drywall-tile-renovation.jpg" alt="Tile and flooring renovation — South Florida" loading="lazy"></div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">05</div>
+        <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21V7l4-1V3h4v3l4-1v4l4-1v13z"/><path d="M3 21h18"/></svg>
+        <h3>Stair Refinishing</h3>
+        <p>Worn treads stripped and reborn — risers, rails, and landings finished to showroom shine.</p>
+        <div class="svc-photo"><img src="miami-staircase-led-renovation-finished.jpg" alt="LED staircase renovation finished — Miami" loading="lazy"></div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">06</div>
+        <svg class="svc-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 22V6l8-4 8 4v16"/><path d="M9 22v-6h6v6M8 9h2M14 9h2M8 13h2M14 13h2"/></svg>
+        <h3>Bath &amp; Full Remodels</h3>
+        <p>Bathrooms, interior remodels, and commercial buildouts — residential care, commercial-grade results.</p>
+        <div class="svc-photo"><img src="miami-commercial-office-renovation-finished.jpg" alt="Commercial office renovation finished — South Florida" loading="lazy"></div>
+      </article>
+
     </div>
   </div>
 </section>
 
-<section class="areas" id="areas">
+<!-- ─── PROCESS ───────────────────────────────────────────────── -->
+<section class="process-section" id="process">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Where we work</span>
-      <h2 class="sec-title">Serving <span class="it">South Florida</span></h2>
+    <div class="sec-label"><span>How it works</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,60px);align-items:end">
+      <h2 class="sec-title" style="color:#fff">Four steps,<br><em class="it" style="color:var(--maroon-soft)">zero surprises</em></h2>
+      <p class="sec-desc">From first call to final walk — we keep you informed, on budget, and confident every step of the way.</p>
     </div>
-    <div class="area-list">
-      <span>Miami</span><span>Brickell</span><span>Boca Raton</span><span>Fort Lauderdale</span>
-      <span>Coral Gables</span><span>Aventura</span><span>Hollywood</span><span>Doral</span>
-      <span>Pompano Beach</span><span>Hialeah</span><span>+ Surrounding Areas</span>
+    <div class="proc-wrap">
+      <div class="proc-step">
+        <div class="step-num">01</div>
+        <h3>Walkthrough</h3>
+        <p>We come to you, see the space, and listen to what you actually want. No high-pressure sales pitch.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">02</div>
+        <h3>Clear Quote</h3>
+        <p>A written, itemized estimate. The number you sign is the number you pay. Period.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">03</div>
+        <h3>The Work</h3>
+        <p>Same crew, dust-controlled, tidy daily. We protect your home as we go, not after the mess is made.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">04</div>
+        <h3>Final Walk</h3>
+        <p>We don't leave until you walk it and love it. That's not a tagline — it's how we work.</p>
+      </div>
+    </div>
+    <div class="proc-img" role="img" aria-label="Ms Renovations Pro completed projects — luxury lobby and crew at work">
+      <div class="proc-img-a"></div>
+      <div class="proc-img-b"></div>
     </div>
   </div>
 </section>
 
-<section class="cta" id="contact">
+<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+<section class="about-section" id="about">
   <div class="wrap">
-    <span class="eyebrow">Free estimates</span>
-    <h2>Let's <span class="it">renovate.</span></h2>
-    <p>Tell us what you're picturing. We'll walk the space, give you a clear quote, and make it beautiful.</p>
-    <a href="tel:7549008247" class="cta-phone">
-      <svg aria-hidden="true" focusable="false" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      754.900.8247
-    </a>
-    <div class="cta-sub">MsRenovationsPro.com · @msrenovationspro</div>
+    <div class="about-grid">
+      <div class="portrait-wrap">
+        <div class="portrait-frame">
+          <img src="ms-renovations-pro-owner-miami.jpg" alt="Ms Renovations Pro founder and owner — woman-owned renovation company in Miami" loading="lazy">
+        </div>
+        <div class="portrait-badge">
+          <b>15+</b>
+          <span>Years</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="sec-label"><span>The woman in charge</span></div>
+        <h2 class="sec-title">The name on<br>the door is <em class="it maroon">hers.</em></h2>
+        <div class="about-role">Founder &amp; Lead · Ms Renovations Pro</div>
+        <p>Ms Renovations Pro is built on a simple belief: renovation should feel like a partnership, not a gamble. She runs every job personally — answering the phone, walking the site, and standing behind every finish.</p>
+        <p>You'll find her on site right alongside the crew. The woman who quotes your project is the same one making sure it's done right.</p>
+        <div class="about-quote">"We don't hand your home off. We treat it like it's ours — because my name is on it."</div>
+        <div class="about-sig">
+          <div>
+            <div class="sig-name">Ms Renovations Pro</div>
+            <div class="sig-phone"><a href="tel:7549008247">754.900.8247 →</a></div>
+          </div>
+          <div class="sig-line"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- ─── GALLERY ───────────────────────────────────────────────── -->
+<section class="gallery-section" id="work">
+  <div class="wrap">
+    <div class="gallery-header">
+      <div>
+        <div class="sec-label"><span>Real work, real results</span></div>
+        <h2 class="sec-title">Proof, <em class="it" style="color:var(--maroon-soft)">on the wall</em></h2>
+        <p class="sec-desc" style="margin-top:10px">Every photo from an actual Ms Renovations Pro job — residential and commercial, across Miami and South Florida.</p>
+      </div>
+      <a href="#contact" class="btn-ghost-light" style="white-space:nowrap;align-self:flex-end">Get a quote</a>
+    </div>
+
+    <div class="gallery-mosaic">
+      <div class="gtile gt1" role="img" aria-label="Finished LED staircase renovation — Miami residential">
+        <img class="gtile-img" src="miami-staircase-led-renovation-finished.jpg" alt="LED staircase renovation completed — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>LED Staircase</h4><p>Miami · Residential</p></div>
+      </div>
+      <div class="gtile gt2" role="img" aria-label="Luxury lobby renovation — Miami commercial">
+        <img class="gtile-img" src="miami-luxury-lobby-renovation-finished.jpg" alt="Luxury lobby renovation finished — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Luxury Lobby</h4><p>Miami · Commercial</p></div>
+      </div>
+      <div class="gtile gt3" role="img" aria-label="Interior painting with black doors — Miami">
+        <img class="gtile-img" src="miami-interior-painting-finished.jpg" alt="Interior painting finished — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Interior Painting</h4><p>Miami · Residential</p></div>
+      </div>
+      <div class="gtile gt4" role="img" aria-label="Hotel corridor painting — Miami commercial">
+        <img class="gtile-img" src="miami-hotel-corridor-painting-finished.jpg" alt="Hotel corridor painting finished — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Hotel Corridor</h4><p>Miami · Hospitality</p></div>
+      </div>
+      <div class="gtile gt5" role="img" aria-label="Commercial office renovation — South Florida">
+        <img class="gtile-img" src="miami-commercial-office-renovation-finished.jpg" alt="Commercial office renovation finished" loading="lazy">
+        <div class="gtile-caption"><h4>Commercial Office</h4><p>South Florida · Commercial</p></div>
+      </div>
+      <div class="gtile gt6" role="img" aria-label="Open plan interior painting — South Florida">
+        <img class="gtile-img" src="miami-interior-painting-open-plan.jpg" alt="Open plan interior painting — South Florida" loading="lazy">
+        <div class="gtile-caption"><h4>Open Plan Repaint</h4><p>South Florida · Painting</p></div>
+      </div>
+      <div class="gtile gt7" role="img" aria-label="Renovation crew trim work — South Florida">
+        <img class="gtile-img" src="miami-renovation-crew-trim-work.jpg" alt="Renovation crew trim and carpentry work" loading="lazy">
+        <div class="gtile-caption"><h4>Trim &amp; Carpentry</h4><p>South Florida · Crew</p></div>
+      </div>
+      <div class="gtile gt8" role="img" aria-label="Staircase painting prep — Miami">
+        <img class="gtile-img" src="miami-staircase-painting-prep.jpg" alt="Staircase painting in preparation — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Staircase Painting</h4><p>Miami · Painting</p></div>
+      </div>
+      <div class="gtile gt9" role="img" aria-label="Drywall sanding and finishing — Miami">
+        <img class="gtile-img" src="miami-drywall-sanding-finish.jpg" alt="Drywall sanding and finishing — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Drywall Finishing</h4><p>Miami · Drywall</p></div>
+      </div>
+      <div class="gtile gt10" role="img" aria-label="Ceiling plaster crew — Miami">
+        <img class="gtile-img" src="miami-ceiling-plaster-crew.jpg" alt="Ceiling plastering crew at work — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Ceiling Plaster</h4><p>Miami · Crew at Work</p></div>
+      </div>
+      <div class="gtile gt11" role="img" aria-label="High-rise condo drywall repair — Brickell">
+        <img class="gtile-img" src="miami-highrise-condo-drywall-repair.jpg" alt="High-rise condo drywall repair — Brickell Miami" loading="lazy">
+        <div class="gtile-caption"><h4>High-Rise Condo</h4><p>Brickell · Drywall</p></div>
+      </div>
+      <div class="gtile gt12" role="img" aria-label="Coffered ceiling drywall taping — South Florida">
+        <img class="gtile-img" src="miami-drywall-taping-coffered-ceiling.jpg" alt="Coffered ceiling drywall taping — South Florida" loading="lazy">
+        <div class="gtile-caption"><h4>Coffered Ceiling</h4><p>South Florida · Drywall</p></div>
+      </div>
+      <div class="gtile gt13" role="img" aria-label="Commercial painting preparation — South Florida">
+        <img class="gtile-img" src="miami-commercial-painting-prep.jpg" alt="Commercial space painting prep — South Florida" loading="lazy">
+        <div class="gtile-caption"><h4>Commercial Prep</h4><p>South Florida · Painting</p></div>
+      </div>
+      <div class="gtile gt14" role="img" aria-label="Home renovation demolition — Miami">
+        <img class="gtile-img" src="miami-home-renovation-demo.jpg" alt="Home renovation demolition phase — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Demo &amp; Frame</h4><p>Miami · Full Remodel</p></div>
+      </div>
+      <div class="gtile gt15" role="img" aria-label="Commercial corridor renovation — South Florida">
+        <img class="gtile-img" src="miami-commercial-corridor-renovation.jpg" alt="Commercial corridor renovation — South Florida" loading="lazy">
+        <div class="gtile-caption"><h4>Commercial Corridor</h4><p>South Florida · Commercial</p></div>
+      </div>
+      <div class="gtile gt16" role="img" aria-label="Commercial framing buildout — Miami">
+        <img class="gtile-img" src="miami-commercial-framing-buildout.jpg" alt="Commercial steel stud framing buildout — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Commercial Framing</h4><p>Miami · Buildout</p></div>
+      </div>
+      <div class="gtile gt17" role="img" aria-label="Drywall primer interior — South Florida">
+        <img class="gtile-img" src="miami-drywall-primer-interior.jpg" alt="Drywall primer coat interior — South Florida" loading="lazy">
+        <div class="gtile-caption"><h4>Drywall Primer</h4><p>South Florida · Drywall</p></div>
+      </div>
+      <div class="gtile gt18" role="img" aria-label="Tile and drywall renovation — South Florida">
+        <img class="gtile-img" src="miami-drywall-tile-renovation.jpg" alt="Tile and drywall renovation — South Florida" loading="lazy">
+        <div class="gtile-caption"><h4>Tile &amp; Drywall</h4><p>South Florida · Flooring</p></div>
+      </div>
+      <div class="gtile gt19" role="img" aria-label="Bright drywall prime room — Miami">
+        <img class="gtile-img" src="miami-drywall-prime-bright-room.jpg" alt="Fresh drywall prime in bright open room — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Fresh Drywall</h4><p>Miami · Drywall</p></div>
+      </div>
+      <div class="gtile gt20" role="img" aria-label="Popcorn ceiling removal — Miami before">
+        <img class="gtile-img" src="popcorn-ceiling-removal-miami-before.jpg" alt="Popcorn ceiling removal in progress — Miami" loading="lazy">
+        <div class="gtile-caption"><h4>Popcorn Removal</h4><p>Miami · Specialty</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AREAS ─────────────────────────────────────────────────── -->
+<section class="areas-section" id="areas">
+  <div class="wrap">
+    <div class="areas-inner">
+      <div>
+        <div class="sec-label"><span>Where we work</span></div>
+        <h2 class="sec-title">Serving<br><em class="it maroon">South Florida</em></h2>
+        <p class="sec-desc" style="margin-top:14px;margin-bottom:32px">Based in Miami — available throughout South Florida for residential and commercial jobs of any size.</p>
+        <div class="area-chips">
+          <span class="area-chip main">Miami</span>
+          <span class="area-chip main">Brickell</span>
+          <span class="area-chip">Boca Raton</span>
+          <span class="area-chip">Fort Lauderdale</span>
+          <span class="area-chip">Coral Gables</span>
+          <span class="area-chip">Aventura</span>
+          <span class="area-chip">Hollywood</span>
+          <span class="area-chip">Doral</span>
+          <span class="area-chip">Pompano Beach</span>
+          <span class="area-chip">Hialeah</span>
+          <span class="area-chip">+ More</span>
+        </div>
+      </div>
+      <div class="areas-image">
+        <img src="miami-commercial-corridor-renovation.jpg" alt="Commercial renovation project in South Florida by Ms Renovations Pro" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT / CTA ─────────────────────────────────────────── -->
+<section class="cta-section" id="contact">
+  <div class="wrap cta-wrap" style="padding-top:clamp(72px,10vw,120px);padding-bottom:clamp(72px,10vw,120px)">
+    <div class="cta-grid">
+      <div class="cta-left">
+        <div class="sec-label"><span>Free estimates</span></div>
+        <h2 class="sec-title">Let's<br><em class="it">renovate.</em></h2>
+        <p>Tell us what you're picturing. We'll walk the space, give you a clear quote, and make it beautiful.</p>
+        <a href="tel:7549008247" class="cta-phone-btn" aria-label="Call 754-900-8247">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          754.900.8247
+        </a>
+        <div class="cta-sub-note">MsRenovationsPro.com · @msrenovationspro</div>
+      </div>
+      <div>
+        <div class="cta-form-card">
+          <h3>Get a free quote</h3>
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First name</label>
+                <input type="text" id="fname" name="name" placeholder="Maria" required autocomplete="given-name">
+              </div>
+              <div class="form-group">
+                <label for="fphone">Phone</label>
+                <input type="tel" id="fphone" name="phone" placeholder="305-555-0100" autocomplete="tel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="femail">Email</label>
+              <input type="email" id="femail" name="email" placeholder="you@example.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="fservice">Service needed</label>
+              <select id="fservice" name="service">
+                <option value="">Select a service…</option>
+                <option>Popcorn Ceiling Removal</option>
+                <option>Drywall &amp; Repair</option>
+                <option>Interior Painting</option>
+                <option>Flooring &amp; Tile</option>
+                <option>Stair Refinishing</option>
+                <option>Bathroom Remodel</option>
+                <option>Commercial Buildout</option>
+                <option>Full Remodel</option>
+                <option>Other / Not sure</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fmsg">Tell us about the project</label>
+              <textarea id="fmsg" name="message" placeholder="Room count, scope, timeline, or any details that help us give you an accurate quote…"></textarea>
+            </div>
+            <button type="submit" class="form-submit">Send my request →</button>
+            <div class="form-msg" id="formMsg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
 <footer>
   <div class="wrap">
-    <div class="foot-top">
+    <div class="foot-grid">
       <div class="foot-brand">
         <img src="ms-renovations-pro-logo.png" alt="Ms Renovations Pro" class="foot-logo">
         <p>Woman-owned renovation and remodeling, built on clean work and straight talk. Licensed local pros serving Miami and South Florida.</p>
-        <div class="socials">
+        <div class="foot-socials">
           <a href="https://www.instagram.com/msrenovationspro" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
           </a>
           <a href="https://www.facebook.com/MsRenovationsPro/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M14 9h3V5.5h-3c-2.2 0-3.5 1.4-3.5 3.6V11H8v3.5h2.5V22h3.5v-7.5h2.6l.4-3.5H14V9.5c0-.4.2-.5.6-.5z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V5.5h-3c-2.2 0-3.5 1.4-3.5 3.6V11H8v3.5h2.5V22h3.5v-7.5h2.6l.4-3.5H14V9.5c0-.4.2-.5.6-.5z"/></svg>
           </a>
         </div>
       </div>
-      <div class="foot-cols">
-        <div class="foot-col"><h4>Services</h4>
-          <a href="#services">Popcorn Removal</a><a href="#services">Drywall</a><a href="#services">Painting</a><a href="#services">Flooring</a><a href="#services">Stair Refinishing</a><a href="#services">Remodels</a></div>
-        <div class="foot-col"><h4>Company</h4>
-          <a href="#about">About Her</a><a href="#work">Our Work</a><a href="#process">Process</a><a href="#areas">Service Areas</a></div>
-        <div class="foot-col"><h4>Contact</h4>
-          <a href="tel:7549008247">754.900.8247</a><p>MsRenovationsPro.com</p><p>@msrenovationspro</p></div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <a href="#services">Popcorn Ceiling Removal</a>
+        <a href="#services">Drywall &amp; Repair</a>
+        <a href="#services">Painting</a>
+        <a href="#services">Flooring &amp; Tile</a>
+        <a href="#services">Stair Refinishing</a>
+        <a href="#services">Remodels</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#about">About Her</a>
+        <a href="#work">Our Work</a>
+        <a href="#process">Our Process</a>
+        <a href="#areas">Service Areas</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="accessibility.html">Accessibility</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:7549008247">754.900.8247</a>
+        <p>MsRenovationsPro.com</p>
+        <p>@msrenovationspro</p>
+        <p style="margin-top:8px;font-size:13px;color:rgba(255,255,255,.3)">Miami · Brickell · Boca Raton<br>Fort Lauderdale · South Florida</p>
       </div>
     </div>
     <div class="foot-bottom">
       <span>© 2026 Ms Renovations Pro. All rights reserved.</span>
-      <span style="display:flex;gap:18px;flex-wrap:wrap"><a href="privacy.html">Privacy Policy</a><a href="accessibility.html">Accessibility</a></span>
-      <span>Miami · Brickell · Boca Raton · South Florida</span>
+      <span>Woman-Owned · Licensed · Miami, FL</span>
     </div>
   </div>
 </footer>
 
-<!-- ACCESSIBILITY TOOLBAR -->
+<!-- ─── ACCESSIBILITY TOOLBAR ────────────────────────────────── -->
 <button class="a11y-fab" id="a11yFab" aria-label="Open accessibility options" aria-expanded="false" aria-controls="a11yPanel">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="4" r="1.6" fill="currentColor"/><path d="M4 8h16M12 8v6M12 14l-3 6M12 14l3 6"/></svg>
 </button>
 <div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Accessibility options">
   <h2>Accessibility</h2>
-  <div class="a11y-sub">Adjust the site to suit your needs. Choices are saved on this device.</div>
-  <div class="a11y-row"><span>Text size</span>
+  <div class="a11y-sub">Adjust the site to suit your needs. Saved on this device.</div>
+  <div class="a11y-row">
+    <span>Text size</span>
     <div class="a11y-textsize" id="a11yText" role="group" aria-label="Text size">
-      <button data-size="0" class="active" aria-label="Default text size">A</button>
-      <button data-size="1" aria-label="Large text">A+</button>
-      <button data-size="2" aria-label="Largest text">A++</button>
+      <button data-size="0" class="active" aria-label="Default">A</button>
+      <button data-size="1" aria-label="Large">A+</button>
+      <button data-size="2" aria-label="Largest">A++</button>
     </div>
   </div>
   <div class="a11y-row"><span>High contrast</span><button class="a11y-toggle" id="a11yContrast" aria-pressed="false" aria-label="Toggle high contrast"></button></div>
@@ -562,9 +1234,10 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-cta):not(.cta-phone
   <button class="a11y-reset" id="a11yReset">Reset all</button>
 </div>
 
+<!-- ─── COOKIE CONSENT ────────────────────────────────────────── -->
 <div class="consent" id="consent" role="dialog" aria-live="polite" aria-label="Cookie consent">
   <div class="consent-inner">
-    <p>We use cookies to understand how visitors use our site so we can improve it. Analytics cookies are only set if you accept. See our <a href="privacy.html">Privacy Policy</a>.</p>
+    <p>We use cookies to understand how visitors use our site so we can improve it. Analytics are only loaded if you accept. <a href="privacy.html">Privacy Policy</a>.</p>
     <div class="consent-actions">
       <button class="consent-btn consent-decline" id="consentDecline">Decline</button>
       <button class="consent-btn consent-accept" id="consentAccept">Accept</button>
@@ -573,33 +1246,58 @@ html.a11y-links a:not(.btn-primary):not(.btn-ghost):not(.nav-cta):not(.cta-phone
 </div>
 
 <script>
+// Nav scroll
 const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30));
 
 // Mobile menu
 (function(){
   const burger=document.getElementById('burger'),links=document.getElementById('navLinks');
   if(!burger)return;
-  burger.addEventListener('click',()=>{const open=links.classList.toggle('open');links.style.display=open?'flex':'';burger.setAttribute('aria-expanded',open?'true':'false');});
-  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=880){links.classList.remove('open');links.style.display='';burger.setAttribute('aria-expanded','false');}}));
+  burger.addEventListener('click',()=>{
+    const open=links.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open);
+  });
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    links.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+  }));
 })();
 
-// Before/After slider
+// Contact form — Web3Forms (replace key when ready)
 (function(){
-  const reveal=document.getElementById('reveal'),after=document.getElementById('afterLayer'),handle=document.getElementById('handle');
-  if(!reveal)return;
-  let active=false,pct=50;
-  function apply(p){p=Math.max(0,Math.min(100,p));pct=p;after.style.clipPath=`inset(0 0 0 ${p}%)`;handle.style.left=p+'%';handle.setAttribute('aria-valuenow',Math.round(p));handle.setAttribute('aria-valuetext',Math.round(p)+'% revealed');}
-  function fromX(x){apply(((x-reveal.getBoundingClientRect().left)/reveal.getBoundingClientRect().width)*100);}
-  const start=()=>active=true,end=()=>active=false,move=e=>{if(!active)return;fromX(e.touches?e.touches[0].clientX:e.clientX);};
-  handle.addEventListener('mousedown',start);reveal.addEventListener('mousedown',e=>{start();fromX(e.clientX);});
-  addEventListener('mouseup',end);addEventListener('mousemove',move);
-  handle.addEventListener('touchstart',start,{passive:true});reveal.addEventListener('touchstart',e=>{start();fromX(e.touches[0].clientX);},{passive:true});
-  addEventListener('touchend',end);addEventListener('touchmove',move,{passive:true});
-  handle.addEventListener('keydown',e=>{const s=e.shiftKey?10:4;if(e.key==='ArrowLeft'||e.key==='ArrowDown'){apply(pct-s);e.preventDefault();}else if(e.key==='ArrowRight'||e.key==='ArrowUp'){apply(pct+s);e.preventDefault();}else if(e.key==='Home'){apply(0);e.preventDefault();}else if(e.key==='End'){apply(100);e.preventDefault();}});
+  const form=document.getElementById('contactForm');
+  const msg=document.getElementById('formMsg');
+  if(!form)return;
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    const btn=form.querySelector('.form-submit');
+    btn.textContent='Sending…';btn.disabled=true;
+    msg.className='form-msg';msg.style.display='none';
+    const data=new FormData(form);
+    data.append('access_key','YOUR_WEB3FORMS_KEY');
+    data.append('subject','New quote request — Ms Renovations Pro');
+    data.append('from_name','MsRenovationsPro.com');
+    try{
+      const res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
+      const json=await res.json();
+      if(json.success){
+        msg.textContent='✓ Thanks! We\'ll be in touch within 24 hours.';
+        msg.className='form-msg success';
+        form.reset();
+      } else {
+        throw new Error(json.message||'Error');
+      }
+    } catch(err){
+      msg.textContent='Something went wrong. Please call us directly at 754.900.8247.';
+      msg.className='form-msg error';
+    }
+    msg.style.display='block';
+    btn.textContent='Send my request →';btn.disabled=false;
+  });
 })();
 
-// Consent + Google Analytics
+// Consent + GA
 (function(){
   const KEY='msrp-consent',GA_ID='G-XXXXXXXXXX',banner=document.getElementById('consent');
   function loadGA(){if(window.__gaLoaded||GA_ID.indexOf('XXXX')>-1)return;window.__gaLoaded=true;const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});}
@@ -615,7 +1313,17 @@ addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
   const KEY='msrp-a11y',root=document.documentElement,fab=document.getElementById('a11yFab'),panel=document.getElementById('a11yPanel');
   const state={size:0,contrast:false,readable:false,links:false,motion:false};
   try{Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}'));}catch(e){}
-  function render(){root.classList.toggle('a11y-bigtext',state.size===1);root.classList.toggle('a11y-hugetext',state.size===2);root.classList.toggle('a11y-contrast',state.contrast);root.classList.toggle('a11y-readable',state.readable);root.classList.toggle('a11y-links',state.links);root.classList.toggle('a11y-nomotion',state.motion);document.querySelectorAll('#a11yText button').forEach(b=>b.classList.toggle('active',+b.dataset.size===state.size));[['a11yContrast','contrast'],['a11yReadable','readable'],['a11yLinks','links'],['a11yMotion','motion']].forEach(([id,k])=>document.getElementById(id).setAttribute('aria-pressed',state[k]?'true':'false'));try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function render(){
+    root.classList.toggle('a11y-bigtext',state.size===1);
+    root.classList.toggle('a11y-hugetext',state.size===2);
+    root.classList.toggle('a11y-contrast',state.contrast);
+    root.classList.toggle('a11y-readable',state.readable);
+    root.classList.toggle('a11y-links',state.links);
+    root.classList.toggle('a11y-nomotion',state.motion);
+    document.querySelectorAll('#a11yText button').forEach(b=>b.classList.toggle('active',+b.dataset.size===state.size));
+    [['a11yContrast','contrast'],['a11yReadable','readable'],['a11yLinks','links'],['a11yMotion','motion']].forEach(([id,k])=>document.getElementById(id).setAttribute('aria-pressed',state[k]?'true':'false'));
+    try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+  }
   function togglePanel(open){const o=open!==undefined?open:!panel.classList.contains('open');panel.classList.toggle('open',o);fab.setAttribute('aria-expanded',o?'true':'false');if(o)panel.querySelector('button').focus();}
   fab.addEventListener('click',()=>togglePanel());
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('open'))togglePanel(false);});
